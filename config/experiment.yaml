@@ -26,9 +26,11 @@ audio:
   request_sleep_seconds: 0.5
 
 prompt:
+  # q3 + r1, Table 3: https://arxiv.org/html/2603.03855v1#S2.SS4
+  # Official Qwen3-Omni / AF3 inference code supplies no explicit system message.
   template: >-
-    Listen to the entire audio clip. Is the sound described as "{caption}" audible
-    at any point in this clip? Answer with exactly one word: yes or no.
+    Does this audio contain the sound of {caption}?
+    Respond using only one word: yes or no.
 
 models:
   gemini_3_pro:

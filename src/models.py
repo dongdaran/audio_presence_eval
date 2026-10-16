@@ -3,7 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 
 
-PROMPT = """Listen to the entire audio clip. Is the sound described as \"{caption}\" audible at any point in this clip? Answer with exactly one word: yes or no."""
+# q3 + r1, https://arxiv.org/html/2603.03855v1#S2.SS4 (Table 3).
+PROMPT = "Does this audio contain the sound of {caption}? Respond using only one word: yes or no."
 
 
 class LLM:
@@ -91,9 +92,6 @@ class LLM:
                 ]}])
             else:
                 conversations.append([
-                    {"role": "system", "content": [
-                        {"type": "text", "text": "You are an audio understanding assistant. Answer the user's question about the audio."}
-                    ]},
                     {"role": "user", "content": [
                         {"type": "audio", "path": str(audio_file)},
                         {"type": "text", "text": prompt},
