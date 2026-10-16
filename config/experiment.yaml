@@ -1,0 +1,58 @@
+experiment:
+  name: audioset_caption_presence_eval
+  seed: 0
+  batch_size: 16                 # score-model batch; LLM checkpoint interval
+  llm_micro_batch_size: 16        # Transformers backends halve the batch automatically on CUDA OOM
+  max_new_tokens: 1
+  temperature: 0.0
+  answer_language: english
+
+hardware:
+  gpu: NVIDIA A100 80GB
+  expected_vram_gb: 80
+
+paths:
+  positive_tsv: data/caption_positive_samples.tsv
+  negative_tsv: data/caption_negative_samples.tsv
+  ontology_json: data/ontology.json
+  audio_cache: audio_cache
+  results: results
+
+audio:
+  sample_rate: 32000
+  channels: 1
+  yt_dlp_format: bestaudio/best
+  download_retries: 3
+  request_sleep_seconds: 0.5
+
+prompt:
+  template: >-
+    Listen to the entire audio clip. Is the sound described as "{caption}" audible
+    at any point in this clip? Answer with exactly one word: yes or no.
+
+models:
+  gemini_3_pro:
+    backend: gemini
+    # Gemini 3 Pro Preview was shut down; use its current 3.1 Pro preview successor.
+    model_id: gemini-3.1-pro-preview
+  kimi_audio_7b:
+    backend: kimi
+    # The base Kimi-Audio-7B is not instruction tuned. Use the official Instruct checkpoint.
+    model_id: moonshotai/Kimi-Audio-7B-Instruct
+  audio_flamingo_3:
+    backend: audio_flamingo
+    model_id: nvidia/audio-flamingo-3-hf
+  qwen3_omni_instruct:
+    backend: qwen3_omni
+    model_id: Qwen/Qwen3-Omni-30B-A3B-Instruct
+
+scoring:
+  clap:
+    text_template: "The sound of {caption}."
+    batch_size: 16
+  cnn14:
+    sample_rate: 32000
+    batch_size: 16
+
+report:
+  output: results/README.md
