@@ -1,0 +1,3 @@
+sample_id	split	clip_id	video_id	clip_start_seconds	clip_end_seconds	duration_seconds	mid	caption	label	model	model_id	raw_response	prediction	status	error
+6f28894813bc038bc731218fb4247d68afe94f34	evaluation	-0BIyqJj9ZU_30000	-0BIyqJj9ZU	30.0	40.0	10.0	/t/dd00001	Baby laughter	yes	kimi_audio_7b	moonshotai/Kimi-Audio-7B-Instruct	yes	yes	ok	
+1fee57c50740254bc27cd993968f2e70d29d6645	evaluation	-0BIyqJj9ZU_30000	-0BIyqJj9ZU	30.0	40.0	10.0	/m/0261r1	Babbling	no	kimi_audio_7b	moonshotai/Kimi-Audio-7B-Instruct	yes	yes	ok	

@@ -1,0 +1,14 @@
+{
+  "seed": 0,
+  "population": 25007,
+  "sample_size": 3000,
+  "labels": {
+    "no": 1586,
+    "yes": 1414
+  },
+  "distinct_captions": 110,
+  "distinct_mids": 110,
+  "clap_scores.tsv_reused": 460,
+  "cnn14_scores.tsv_reused": 459,
+  "llm_audio_flamingo_3.tsv_reused": 459
+}

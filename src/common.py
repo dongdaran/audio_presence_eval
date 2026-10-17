@@ -10,6 +10,9 @@ from typing import Any
 
 def read_config(path: Path) -> dict[str, Any]:
     import yaml
+    from dotenv import load_dotenv
+
+    load_dotenv(Path(__file__).resolve().parents[1] / ".env", override=False)
 
     with path.open(encoding="utf-8") as handle:
         config = yaml.safe_load(handle)

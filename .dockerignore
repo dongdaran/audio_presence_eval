@@ -3,3 +3,8 @@ model_cache/
 results/
 __pycache__/
 *.pyc
+
+.env
+.venv/
+
+.venv-kimi/

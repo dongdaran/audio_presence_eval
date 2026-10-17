@@ -1,0 +1,36 @@
+
+2026-10-17T01:40:57.599348+00:00 START ['/workspace/audio_presence_eval/.venv/bin/python', '-u', '/workspace/audio_presence_eval/scripts/run_experiment.py', '--config', '/workspace/audio_presence_eval/config/random3000.yaml', '--task', 'cnn14']
+Run: task=cnn14 model=- rows=3000 limit=None results=/workspace/audio_presence_eval/results/random3000
+Scores: resuming 459 saved; 2541 pending; output: /workspace/audio_presence_eval/results/random3000/cnn14_scores.tsv
+Checkpoint path: /workspace/.hf_home/hub/models--thelou1s--panns-inference/snapshots/5546cbe0c06a7695a23c041ef5e6dab76b3312d6/Cnn14_mAP=0.431.pth
+GPU number: 1
+CNN14: 16/2541
+CNN14: 32/2541
+
+2026-10-17T01:41:35.916205+00:00 START ['/workspace/audio_presence_eval/.venv/bin/python', '-u', '/workspace/audio_presence_eval/scripts/run_experiment.py', '--config', '/workspace/audio_presence_eval/config/random3000.yaml', '--task', 'cnn14']
+Run: task=cnn14 model=- rows=3000 limit=None results=/workspace/audio_presence_eval/results/random3000
+Scores: resuming 487 saved; 2513 pending; output: /workspace/audio_presence_eval/results/random3000/cnn14_scores.tsv
+Checkpoint path: /workspace/.hf_home/hub/models--thelou1s--panns-inference/snapshots/5546cbe0c06a7695a23c041ef5e6dab76b3312d6/Cnn14_mAP=0.431.pth
+GPU number: 1
+CNN14 batch_size=128
+CNN14: 128/2513
+CNN14: 256/2513
+CNN14: 384/2513
+CNN14: 512/2513
+CNN14: 640/2513
+CNN14: 768/2513
+CNN14: 896/2513
+CNN14: 1024/2513
+CNN14: 1152/2513
+CNN14: 1280/2513
+CNN14: 1408/2513
+CNN14: 1536/2513
+CNN14: 1664/2513
+CNN14: 1792/2513
+CNN14: 1920/2513
+CNN14: 2048/2513
+CNN14: 2176/2513
+CNN14: 2304/2513
+CNN14: 2432/2513
+CNN14: 2513/2513
+Completed: task=cnn14; results: /workspace/audio_presence_eval/results/random3000; report: /workspace/audio_presence_eval/results/random3000/README.md

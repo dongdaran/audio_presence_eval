@@ -8,39 +8,81 @@
 - YouTube 오디오 다운로드를 위해 네트워크와 `ffmpeg`가 필요합니다.
 - 키 파일을 준비합니다: `cp .env.example .env` 후 필요한 키를 입력합니다.
 
-## 실행
+## Vast.ai에서 Docker 없이 실행 (uv)
 
-저장소 루트에서 이미지를 빌드합니다.
+프로젝트 폴더(`/workspace/audio_presence_eval`)에서 실행합니다.
 
 ```bash
-docker build -f experiments/audio_presence_eval/Dockerfile \
-  -t audioset-presence-eval experiments/audio_presence_eval
+uv venv --python /venv/main/bin/python .venv
+uv pip install --python .venv/bin/python -c constraints-gpu.txt \
+  torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
+uv pip install --python .venv/bin/python -c constraints-gpu.txt -r requirements.txt
+.venv/bin/python -c "import torch; assert torch.cuda.is_available(); print(torch.cuda.get_device_name(0))"
 ```
 
-아래 명령은 모델별 LLM 평가 후 CLAP, CNN14 점수를 계산하고 요약을 만듭니다. 결과는 `results/`에 저장됩니다.
+CUDA 12.6용 PyTorch를 사용합니다. 현재 Vast.ai 드라이버에서 CUDA 13용 PyTorch는 GPU를 초기화하지 못합니다.
+
+`.env.example`을 참고해 프로젝트 루트의 `.env`에 아래 값을 입력합니다. 프로그램이 자동으로 읽으므로 `export`가 필요 없습니다. `.env`는 Git과 Docker 빌드 컨텍스트에서 제외됩니다.
+
+```dotenv
+OPENROUTER_API_KEY=본인의_OpenRouter_API_키
+# 선택: 오디오 입력을 지원하는 다른 OpenRouter 모델
+# OPENROUTER_MODEL=google/gemini-3.1-pro-preview
+```
+
+`gemini_3_pro`는 기존 결과 파일 이름과의 호환을 위한 설정 키이며, 실제 API 호출은 OpenRouter의 `google/gemini-3.1-pro-preview`를 사용합니다. 실제 모델 ID는 결과 TSV에 기록됩니다. Kimi, Audio Flamingo, Qwen은 로컬 GPU 모델입니다.
+
+먼저 소량 실행으로 API와 오디오 다운로드를 확인합니다.
+
+```bash
+.venv/bin/python scripts/run_experiment.py --task llm --model gemini_3_pro --limit 2
+```
+
+Gemini Argon도 같은 `.env`의 `OPENROUTER_API_KEY`를 사용합니다. `OPENROUTER_MODEL`의 영향을 받지 않으며, 실제 모델 ID는 `google/gemini-4-argon`입니다.
+
+```bash
+.venv/bin/python scripts/run_experiment.py --task llm --model gemini_argon --limit 2
+```
+
+전체 평가:
 
 ```bash
 set -e
-run_eval() {
-  docker run --rm --gpus all \
-    --env-file .env \
-    -v "$PWD/experiments/audio_presence_eval/data:/workspace/experiments/audio_presence_eval/data:ro" \
-    -v "$PWD/experiments/audio_presence_eval/model_cache:/workspace/.cache/huggingface" \
-    -v "$PWD/experiments/audio_presence_eval/audio_cache:/workspace/experiments/audio_presence_eval/audio_cache" \
-    -v "$PWD/experiments/audio_presence_eval/results:/workspace/experiments/audio_presence_eval/results" \
-    audioset-presence-eval "$@"
-}
-
-for model in gemini_3_pro kimi_audio_7b audio_flamingo_3 qwen3_omni_instruct; do
-  run_eval --task llm --model "$model"
+for model in gemini_3_pro gemini_argon kimi_audio_7b audio_flamingo_3 qwen3_omni_instruct; do
+  if [ "$model" = kimi_audio_7b ]; then
+    .venv-kimi/bin/python scripts/run_experiment.py --task llm --model "$model"
+  else
+    .venv/bin/python scripts/run_experiment.py --task llm --model "$model"
+  fi
 done
-
 for task in clap cnn14 report; do
-  run_eval --task "$task"
+  .venv/bin/python scripts/run_experiment.py --task "$task"
 done
 ```
 
-결과 요약: `experiments/audio_presence_eval/results/README.md`
+OpenRouter 오디오 요청은 [공식 오디오 입력 규격](https://openrouter.ai/docs/guides/overview/multimodal/audio)을 따릅니다.
+
+Kimi-Audio는 Transformers 4.51.3를 사용하는 전용 `.venv-kimi`에서 실행합니다. 다른 모델의 `.venv`는 Transformers 5 환경을 유지합니다. 설치 스크립트는 현재 Vast.ai의 Linux x86_64 / Python 3.12 / CUDA 12.6 환경용입니다.
+
+```bash
+bash scripts/install_kimi.sh
+.venv-kimi/bin/python scripts/run_experiment.py --task llm --model kimi_audio_7b --limit 2
+```
+
+설치 스크립트는 공식 Kimi 소스와 서브모듈, PyTorch 2.7.1 및 이에 맞는 공식 FlashAttention 휠을 설치하고 GPU 연산을 검사합니다. 모델 가중치는 첫 실행 때 다운로드됩니다. `.env`는 이 환경에서도 자동으로 읽습니다.
+
+결과와 요약은 `results/`에 저장됩니다. `--limit` 실행 결과에는 `smoke_` 접두사가 붙습니다.
+
+샘플 결과 검증 (모델별 2개 행 실행 후):
+
+```bash
+.venv/bin/python scripts/check_smoke_results.py --limit 2
+```
+
+`results/validation/README.md`에 모델별 성공 건수와 응답/점수를 기록합니다. 결과 행이 없거나 오류·빈 응답·유효하지 않은 점수가 있으면 종료 코드 1을 반환합니다. OpenRouter HTTP 402는 계정 크레딧 부족이며 `.env`의 키에 연결된 계정 잔액을 확인해야 합니다.
+
+Kimi의 메타데이터 없는 Whisper safetensors 로딩은 Transformers 4.51.3에서 검증했습니다. Transformers 모델은 오디오를 모델 dtype으로 변환하고, 텍스트에만 패딩 옵션을 적용해 모델별 오디오 패딩 규칙을 유지합니다. CLAP는 Hugging Face 캐시에서 체크포인트를 읽습니다. CNN14 미러는 Zenodo 원본 체크섬과 일치하는지 확인한 뒤 사용합니다.
+
 
 ## 결과 예시
 

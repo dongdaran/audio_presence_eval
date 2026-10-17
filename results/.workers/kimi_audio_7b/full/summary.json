@@ -1,0 +1,37 @@
+{
+  "workers": 3,
+  "requested_workers": 3,
+  "wall_seconds": 20281.57126609597,
+  "peak_gpu_used_mib": 71230,
+  "rows": 25007,
+  "successful": 20889,
+  "worker_metrics": [
+    {
+      "worker": 0,
+      "assigned": 8336,
+      "load_seconds": 9.181156502105296,
+      "inference_seconds": 20067.555490130908,
+      "successful": 6952,
+      "peak_allocated_gib": 22.209365367889404,
+      "peak_reserved_gib": 22.66796875
+    },
+    {
+      "worker": 1,
+      "assigned": 8336,
+      "load_seconds": 9.415791081031784,
+      "inference_seconds": 20267.753678027075,
+      "successful": 6919,
+      "peak_allocated_gib": 22.209365367889404,
+      "peak_reserved_gib": 22.66796875
+    },
+    {
+      "worker": 2,
+      "assigned": 8335,
+      "load_seconds": 9.338801070000045,
+      "inference_seconds": 19746.852643072023,
+      "successful": 7018,
+      "peak_allocated_gib": 22.209365367889404,
+      "peak_reserved_gib": 22.66796875
+    }
+  ]
+}

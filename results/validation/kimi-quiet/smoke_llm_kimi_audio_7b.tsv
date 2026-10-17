@@ -1,0 +1,7 @@
+sample_id	split	clip_id	video_id	clip_start_seconds	clip_end_seconds	duration_seconds	mid	caption	label	model	model_id	raw_response	prediction	status	error
+44cb45ebda08ca19f79d68da1e98c823416e7bcd	evaluation	--i-y1v8Hy8_0	--i-y1v8Hy8	0.0	9.0	9.0	/m/0ytgt	Child speech, kid speaking	yes	kimi_audio_7b	moonshotai/Kimi-Audio-7B-Instruct	yes	yes	ok	
+6f28894813bc038bc731218fb4247d68afe94f34	evaluation	-0BIyqJj9ZU_30000	-0BIyqJj9ZU	30.0	40.0	10.0	/t/dd00001	Baby laughter	yes	kimi_audio_7b	moonshotai/Kimi-Audio-7B-Instruct	yes	yes	ok	
+392882b79476d051ce280c8cdd282fa8d80298c2	evaluation	-0RWZT-miFs_420000	-0RWZT-miFs	420.0	430.0	10.0	/m/02rhddq	Reversing beeps	yes	kimi_audio_7b	moonshotai/Kimi-Audio-7B-Instruct	yes	yes	ok	
+990123b906c55d9ef7f5fe1db556f0fa20c887cf	evaluation	--4gqARaEJE_0	--4gqARaEJE	0.0	10.0	10.0	/m/05tny_	Bark	no	kimi_audio_7b	moonshotai/Kimi-Audio-7B-Instruct	YES	yes	ok	
+11a5f2d7b203f345befe9ffc8b1c2d52b377cc0b	evaluation	--U7joUcTCo_0	--U7joUcTCo	0.0	10.0	10.0	/m/0dl9sf8	Throat clearing	no	kimi_audio_7b	moonshotai/Kimi-Audio-7B-Instruct	no	no	ok	
+1fee57c50740254bc27cd993968f2e70d29d6645	evaluation	-0BIyqJj9ZU_30000	-0BIyqJj9ZU	30.0	40.0	10.0	/m/0261r1	Babbling	no	kimi_audio_7b	moonshotai/Kimi-Audio-7B-Instruct	yes	yes	ok	

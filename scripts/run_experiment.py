@@ -23,9 +23,51 @@ def main():
     parser.add_argument("--task", choices=("llm", "clap", "cnn14", "report"), required=True)
     parser.add_argument("--model", help="LLM config key, e.g. qwen3_omni_instruct")
     parser.add_argument("--limit", type=int, help="Run only the first N rows (smoke test)")
+    parser.add_argument("--workers", type=int, default=1, help="Kimi processes sharing one GPU")
+    parser.add_argument("--results-dir", type=Path, help="Override result directory (e.g. isolated benchmark)")
     args = parser.parse_args()
+    if args.workers < 1:
+        parser.error("--workers must be positive")
+    if args.workers != 1 and (args.task != "llm" or args.model != "kimi_audio_7b"):
+        parser.error("--workers is supported only for --task llm --model kimi_audio_7b")
 
     config = read_config(args.config)
+    if args.task == "llm" and args.model == "qwen3_omni_instruct" and not args.limit:
+        wait_for = ROOT / "results/validation/full/qwen_wait_for.json"
+        if wait_for.exists():
+            import time
+            expected = len(load_samples(config))
+            prerequisites = json.loads(wait_for.read_text())
+            while True:
+                waiting = []
+                for filename in prerequisites:
+                    path = config["paths"]["results"] / filename
+                    try:
+                        with path.open(newline="", encoding="utf-8") as handle:
+                            count = len({row["sample_id"] for row in csv.DictReader(handle, delimiter="\t")})
+                    except (OSError, KeyError, csv.Error):
+                        count = 0
+                    if count != expected:
+                        waiting.append(f"{filename}: {count}/{expected}")
+                # Wait for processes to exit as well, including final checkpoint/report writes.
+                for proc in Path("/proc").iterdir():
+                    if not proc.name.isdigit():
+                        continue
+                    try:
+                        argv = (proc / "cmdline").read_bytes().split(b"\0")
+                    except OSError:
+                        continue
+                    if not any(arg.endswith(b"run_experiment.py") for arg in argv):
+                        continue
+                    if any(value in argv for value in [b"clap", b"cnn14", b"audio_flamingo_3"]):
+                        waiting.append(f"active prerequisite PID {proc.name}")
+                if not waiting:
+                    break
+                print("Qwen waiting: " + "; ".join(waiting), flush=True)
+                time.sleep(30)
+    if args.results_dir:
+        config["paths"]["results"] = args.results_dir.resolve()
+        config["report"]["output"] = args.results_dir.resolve() / "README.md"
     samples = load_samples(config)
     if args.limit:
         half = (args.limit + 1) // 2
@@ -34,10 +76,16 @@ def main():
         samples = yes_samples + no_samples
     results: Path = config["paths"]["results"]
     results.mkdir(parents=True, exist_ok=True)
+    print(f"Run: task={args.task} model={args.model or '-'} rows={len(samples)} "
+          f"limit={args.limit} results={results.resolve()}", flush=True)
     if args.task == "llm":
         if args.model not in config["models"]:
             parser.error("--model must be one of: " + ", ".join(config["models"]))
-        run_llm(args.model, samples, config, results)
+        if args.workers > 1:
+            from src.parallel import run_parallel_kimi
+            run_parallel_kimi(args.model, samples, config, results, args.workers, args.limit)
+        else:
+            run_llm(args.model, samples, config, results)
     elif args.task == "clap":
         from src.scoring import run_clap
         output = results / ("clap_scores.tsv" if not args.limit else "smoke_clap_scores.tsv")
@@ -51,24 +99,34 @@ def main():
     else:
         generate_report(results, config["report"]["output"], len(load_samples(config)), config)
 
+    print(f"Completed: task={args.task}; results: {results.resolve()}; "
+          f"report: {config['report']['output']}", flush=True)
 
-def run_llm(model_key, samples, config, results):
+
+def run_llm(model_key, samples, config, results, *, output_path=None, make_report=True, initial_rows=None, model=None):
     model_spec = config["models"][model_key]
     all_samples_count = len(load_samples(config))
     smoke = len(samples) < all_samples_count
     output = results / (f"smoke_llm_{model_key}.tsv" if smoke else f"llm_{model_key}.tsv")
-    existing = {}
+    output = output_path or output
+    print(f"LLM output: {output.resolve()} ({len(samples)} rows)", flush=True)
+    sample_ids = {sample["sample_id"] for sample in samples}
+    existing = {row["sample_id"]: row for row in (initial_rows or []) if row["sample_id"] in sample_ids}
     if output.exists():
         with output.open(newline="", encoding="utf-8") as handle:
-            existing = {row["sample_id"]: row for row in csv.DictReader(handle, delimiter="\t")}
-    model = LLM(model_key, model_spec, config)
+            for row in csv.DictReader(handle, delimiter="\t"):
+                if row["sample_id"] in sample_ids and existing.get(row["sample_id"], {}).get("status") != "ok":
+                    existing[row["sample_id"]] = row
     rows = list(existing.values())
     checkpoint = int(config["experiment"].get("batch_size", 16))
-    micro_batch = max(1, int(config["experiment"].get("llm_micro_batch_size", 1)))
-    if model_spec["backend"] in {"gemini", "kimi"}:
+    micro_batch = max(1, int(model_spec.get("llm_micro_batch_size", config["experiment"].get("llm_micro_batch_size", 1))))
+    if model_spec["backend"] in {"openrouter", "kimi"}:
         micro_batch = 1
-    done = {sample_id for sample_id, row in existing.items() if row.get("status") != "error"}
+    done = {sample_id for sample_id, row in existing.items() if row.get("status") == "ok"}
     pending = [sample for sample in samples if sample["sample_id"] not in done]
+    print(f"LLM {model_key}: micro_batch={micro_batch}; saved_ok={len(done)}; pending={len(pending)}", flush=True)
+    if pending and model is None:
+        model = LLM(model_key, model_spec, config)
     cursor = 0
     while cursor < len(pending):
         batch = pending[cursor:cursor + micro_batch]
@@ -77,7 +135,7 @@ def run_llm(model_key, samples, config, results):
             "video_id": sample["video_id"], "clip_start_seconds": sample["clip_start_seconds"],
             "clip_end_seconds": sample["clip_end_seconds"], "duration_seconds": sample["duration_seconds"],
             "mid": sample["mid"], "caption": sample["caption"], "label": sample["label"],
-            "model": model_key, "model_id": model_spec["model_id"],
+            "model": model_key, "model_id": model.spec["model_id"],
         } for sample in batch]
         prepared_samples, prepared_paths = [], []
         try:
@@ -123,7 +181,9 @@ def run_llm(model_key, samples, config, results):
             write_tsv(output, rows)
         cursor += len(batch)
     write_tsv(output, rows)
-    generate_report(results, config["report"]["output"], len(load_samples(config)), config)
+    if make_report:
+        generate_report(results, config["report"]["output"], all_samples_count, config)
+    return rows
 
 
 if __name__ == "__main__":

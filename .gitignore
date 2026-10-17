@@ -3,3 +3,11 @@ model_cache/
 results/*.tsv
 __pycache__/
 *.pyc
+
+.env
+.venv/
+
+.venv-kimi/
+
+results/validation/*.log
+results/validation/*.json

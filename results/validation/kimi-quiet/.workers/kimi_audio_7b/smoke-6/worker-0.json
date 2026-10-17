@@ -1,0 +1,9 @@
+{
+  "worker": 0,
+  "assigned": 2,
+  "load_seconds": 9.045480767963454,
+  "inference_seconds": 1.6602746730204672,
+  "successful": 2,
+  "peak_allocated_gib": 22.209365367889404,
+  "peak_reserved_gib": 22.607421875
+}

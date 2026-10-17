@@ -1,0 +1,11 @@
+2026-10-16 11:40:27.502 | INFO     | kimia_infer.api.kimia:__init__:16 - Loading kimi-audio main model
+Fetching 64 files:   0%|          | 0/64 [00:00<?, ?it/s]Fetching 64 files: 100%|██████████| 64/64 [00:00<00:00, 8239.02it/s]
+2026-10-16 11:40:27.590 | INFO     | kimia_infer.api.kimia:__init__:25 - Looking for resources in /workspace/.hf_home/hub/models--moonshotai--Kimi-Audio-7B-Instruct/snapshots/9a82a84c37ad9eb1307fb6ed8d7b397862ef9e6b
+2026-10-16 11:40:27.590 | INFO     | kimia_infer.api.kimia:__init__:26 - Loading whisper model
+using normal flash attention
+Loading checkpoint shards:   0%|          | 0/36 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 36/36 [00:00<00:00, 949.11it/s]
+2026-10-16 11:40:31.313 | INFO     | kimia_infer.api.prompt_manager:__init__:20 - Looking for resources in /workspace/.hf_home/hub/models--moonshotai--Kimi-Audio-7B-Instruct/snapshots/9a82a84c37ad9eb1307fb6ed8d7b397862ef9e6b
+2026-10-16 11:40:31.313 | INFO     | kimia_infer.api.prompt_manager:__init__:21 - Loading whisper model
+2026-10-16 11:40:33.425 | INFO     | kimia_infer.api.prompt_manager:__init__:30 - Loading text tokenizer
+kimi_audio_7b: 1/2
+kimi_audio_7b: 2/2

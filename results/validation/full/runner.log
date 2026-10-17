@@ -1,0 +1,4 @@
+2026-10-17T00:12:13.293396+00:00 START clap: ['/workspace/audio_presence_eval/.venv/bin/python', '-u', '/workspace/audio_presence_eval/scripts/run_experiment.py', '--task', 'clap']
+2026-10-17T00:31:08.352828+00:00 START clap: ['/workspace/audio_presence_eval/.venv/bin/python', '-u', '/workspace/audio_presence_eval/scripts/run_experiment.py', '--task', 'clap']
+2026-10-17T00:33:51.383381+00:00 START cnn14: ['/workspace/audio_presence_eval/.venv/bin/python', '-u', '/workspace/audio_presence_eval/scripts/run_experiment.py', '--task', 'cnn14']
+2026-10-17T00:34:17.722419+00:00 START cnn14: ['/workspace/audio_presence_eval/.venv/bin/python', '-u', '/workspace/audio_presence_eval/scripts/run_experiment.py', '--task', 'cnn14']

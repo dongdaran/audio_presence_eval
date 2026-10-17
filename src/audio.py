@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import shutil
 import subprocess
+import sys
 import time
 from pathlib import Path
 
@@ -24,7 +25,7 @@ def audio_path(sample: dict, config: dict) -> Path:
     template = str(temporary / "audio.%(ext)s")
     url = f"https://www.youtube.com/watch?v={sample['video_id']}"
     command = [
-        "yt-dlp", "--no-warnings", "--quiet", "--no-progress",
+        sys.executable, "-m", "yt_dlp", "--no-warnings", "--quiet", "--no-progress",
         "--format", config["audio"].get("yt_dlp_format", "bestaudio/best"),
         "--extract-audio", "--audio-format", "wav",
         "--download-sections", f"*{start:.3f}-{end:.3f}",

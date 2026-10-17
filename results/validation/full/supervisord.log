@@ -1,0 +1,50 @@
+2026-10-17 00:12:13,202 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2026-10-17 00:12:13,205 INFO RPC interface 'supervisor' initialized
+2026-10-17 00:12:13,205 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2026-10-17 00:12:13,206 INFO daemonizing the supervisord process
+2026-10-17 00:12:13,206 INFO supervisord started with pid 768119
+2026-10-17 00:12:13,269 INFO spawned: 'remaining-models' with pid 768123
+2026-10-17 00:12:14,294 INFO success: remaining-models entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-10-17 00:31:08,236 INFO waiting for remaining-models to stop
+2026-10-17 00:31:08,238 WARN stopped: remaining-models (terminated by SIGTERM)
+2026-10-17 00:31:08,329 INFO spawned: 'remaining-models' with pid 776607
+2026-10-17 00:31:09,354 INFO success: remaining-models entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-10-17 00:33:51,268 INFO waiting for remaining-models to stop
+2026-10-17 00:33:51,269 WARN stopped: remaining-models (terminated by SIGTERM)
+2026-10-17 00:33:51,360 INFO spawned: 'remaining-models' with pid 779808
+2026-10-17 00:33:52,384 INFO success: remaining-models entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-10-17 00:34:17,462 INFO waiting for remaining-models to stop
+2026-10-17 00:34:17,463 WARN stopped: remaining-models (terminated by SIGTERM)
+2026-10-17 00:34:17,630 INFO spawned: 'clap' with pid 780282
+2026-10-17 00:34:17,700 INFO spawned: 'remaining-models' with pid 780284
+2026-10-17 00:34:18,845 INFO success: remaining-models entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-10-17 00:34:18,845 INFO success: clap entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-10-17 00:36:21,981 INFO spawned: 'audio-flamingo' with pid 782315
+2026-10-17 00:36:23,352 INFO success: audio-flamingo entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-10-17 01:40:55,786 INFO waiting for remaining-models to stop
+2026-10-17 01:40:55,786 INFO waiting for clap to stop
+2026-10-17 01:40:55,786 INFO waiting for audio-flamingo to stop
+2026-10-17 01:40:55,788 WARN stopped: remaining-models (terminated by SIGTERM)
+2026-10-17 01:40:57,056 WARN stopped: clap (terminated by SIGTERM)
+2026-10-17 01:40:57,056 WARN stopped: audio-flamingo (terminated by SIGTERM)
+2026-10-17 01:40:57,570 INFO spawned: 'audio-flamingo' with pid 824489
+2026-10-17 01:40:57,574 INFO spawned: 'clap' with pid 824490
+2026-10-17 01:40:57,577 INFO spawned: 'remaining-models' with pid 824491
+2026-10-17 01:40:58,663 INFO success: audio-flamingo entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-10-17 01:40:58,663 INFO success: clap entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-10-17 01:40:58,663 INFO success: remaining-models entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-10-17 01:41:34,566 INFO waiting for audio-flamingo to stop
+2026-10-17 01:41:34,566 INFO waiting for clap to stop
+2026-10-17 01:41:34,566 INFO waiting for remaining-models to stop
+2026-10-17 01:41:34,568 WARN stopped: remaining-models (terminated by SIGTERM)
+2026-10-17 01:41:34,784 WARN stopped: audio-flamingo (terminated by SIGTERM)
+2026-10-17 01:41:35,786 WARN stopped: clap (terminated by SIGTERM)
+2026-10-17 01:41:35,891 INFO spawned: 'audio-flamingo' with pid 825326
+2026-10-17 01:41:35,892 INFO spawned: 'clap' with pid 825327
+2026-10-17 01:41:35,893 INFO spawned: 'remaining-models' with pid 825328
+2026-10-17 01:41:36,982 INFO success: audio-flamingo entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-10-17 01:41:36,982 INFO success: clap entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-10-17 01:41:36,982 INFO success: remaining-models entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-10-17 02:34:00,054 INFO exited: clap (exit status 0; expected)
+2026-10-17 02:34:04,179 INFO exited: audio-flamingo (exit status 0; expected)
+2026-10-17 03:15:47,930 INFO exited: remaining-models (exit status 0; expected)

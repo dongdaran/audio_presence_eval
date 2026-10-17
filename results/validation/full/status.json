@@ -1,0 +1,13 @@
+{
+  "started": "2026-10-17T00:34:17.722035+00:00",
+  "status": "running",
+  "jobs": [
+    {
+      "model": "cnn14",
+      "status": "running",
+      "started": "2026-10-17T00:34:17.722233+00:00",
+      "output": "/workspace/audio_presence_eval/results/cnn14_scores.tsv",
+      "log": "/workspace/audio_presence_eval/results/validation/full/cnn14.log"
+    }
+  ]
+}
