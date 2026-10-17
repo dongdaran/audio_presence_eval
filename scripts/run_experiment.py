@@ -32,7 +32,7 @@ def main():
         parser.error("--workers is supported only for --task llm --model kimi_audio_7b")
 
     config = read_config(args.config)
-    if args.task == "llm" and args.model == "qwen3_omni_instruct" and not args.limit:
+    if args.task == "llm" and args.model == "qwen3_omni_instruct" and not args.limit and "stemfoley_csv" not in config["paths"]:
         wait_for = ROOT / "results/validation/full/qwen_wait_for.json"
         if wait_for.exists():
             import time
@@ -136,6 +136,7 @@ def run_llm(model_key, samples, config, results, *, output_path=None, make_repor
             "clip_end_seconds": sample["clip_end_seconds"], "duration_seconds": sample["duration_seconds"],
             "mid": sample["mid"], "caption": sample["caption"], "label": sample["label"],
             "model": model_key, "model_id": model.spec["model_id"],
+            **{key: sample[key] for key in ("source_present", "difficulty", "contamination_label", "local_audio_path") if key in sample},
         } for sample in batch]
         prepared_samples, prepared_paths = [], []
         try:

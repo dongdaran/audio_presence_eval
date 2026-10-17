@@ -9,6 +9,11 @@ from pathlib import Path
 
 
 def audio_path(sample: dict, config: dict) -> Path:
+    if sample.get("local_audio_path"):
+        path = Path(sample["local_audio_path"])
+        if not path.is_file():
+            raise FileNotFoundError(path)
+        return path
     cache: Path = config["paths"]["audio_cache"]
     cache.mkdir(parents=True, exist_ok=True)
     key = hashlib.sha1(

@@ -1,5 +1,37 @@
 # AudioSet Presence Evaluation
 
+## StemFoley test 평가
+
+`config/stemfoley.yaml`은 `data/stemfoley_contam_v1/test_labels.csv`의 476개
+로컬 오디오를 사용합니다. 정답은 `source_present` (`target_audible`의 yes/no),
+난이도는 `difficulty` (clean → easy, contaminated → hard)입니다.
+undetermined는 제외합니다. 원본 데이터와 기존 실험 결과는 유지됩니다.
+
+기존 설치 절차로 `.venv`와 `.venv-kimi`를 준비한 뒤 실행합니다.
+
+```bash
+# 모델마다 2개씩 먼저 확인
+bash scripts/run_stemfoley.sh --limit 2
+# Qwen → Audio Flamingo → Kimi → CLAPScore → CNN14 (매핑된 74개) → report
+bash scripts/run_stemfoley.sh
+```
+
+개별 실행:
+
+```bash
+.venv/bin/python scripts/run_experiment.py --config config/stemfoley.yaml --task llm --model qwen3_omni_instruct
+.venv/bin/python scripts/run_experiment.py --config config/stemfoley.yaml --task llm --model audio_flamingo_3
+.venv-kimi/bin/python scripts/run_experiment.py --config config/stemfoley.yaml --task llm --model kimi_audio_7b
+.venv/bin/python scripts/run_experiment.py --config config/stemfoley.yaml --task clap
+```
+
+결과는 `results/stemfoley/`에 저장하며 성공한 행은 재실행 시 건너뜁니다.
+TSV에 정답과 난이도를 함께 기록하고 README에 easy/hard × yes/no별 성능을 집계합니다.
+`--limit` 출력은 `smoke_` 파일로 저장하며 전체 평가 보고서에는 포함하지 않습니다.
+CLAP은 target 문장과의 유사도이며 자동 임계값을 적용하지 않습니다.
+CNN14는 target이 AudioSet 클래스명과 정확히 일치하는 74개만 평가합니다.
+나머지 402개는 건너뛰며, 보고서의 CNN14 성능은 이 부분집합에 대한 점수입니다.
+
 ## 준비
 
 - Vast.ai GPU: A100 80GB

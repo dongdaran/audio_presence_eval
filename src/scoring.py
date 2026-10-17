@@ -54,6 +54,10 @@ def run_clap(samples, config, output_path):
 
 
 def run_cnn14(samples, config, ontology_path, output_path):
+    if config["scoring"]["cnn14"].get("mapped_only"):
+        eligible = [sample for sample in samples if sample.get("mid")]
+        print(f"CNN14: evaluating {len(eligible)} mapped samples; skipping {len(samples) - len(eligible)} unmapped targets", flush=True)
+        samples = eligible
     rows, samples = _resume_scores(samples, output_path)
     if not samples:
         return
@@ -156,6 +160,7 @@ def _score_row(sample, model, score, text, map_status="ok", error=""):
         "clip_end_seconds": sample["clip_end_seconds"], "duration_seconds": sample["duration_seconds"],
         "mid": sample["mid"], "caption": sample["caption"], "label": sample["label"],
         "model": model, "score": score, "score_text": text,
+        **{key: sample[key] for key in ("source_present", "difficulty", "contamination_label", "local_audio_path") if key in sample},
         "map_status": map_status, "status": map_status, "error": error,
     }
 

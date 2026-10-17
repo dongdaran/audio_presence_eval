@@ -79,6 +79,24 @@ def generate_report(results: Path, out: Path, sample_count: int, config=None):
             fmt = lambda value: f"{value:.6f}" if math.isfinite(value) else "NA"
             lines.append(f"| {mid} | {item['caption']} | {len(yes)} | {fmt(yes_mean)} | {len(no)} | {fmt(no_mean)} | {fmt(delta)} |")
     lines += ["", "## Notes", "", "- `yes`/`no` are the reference labels from the existing evaluation TSVs; each row is one clip/class pair.", "- Sample duration follows the source TSV. Some positive clips are shorter than 10 seconds; no padding is applied to model input audio.", "- Failed downloads/inferences and unmapped CNN14 classes remain visible in result TSVs and are excluded from score means where no score exists.", "- CLAPScore values are similarity scores, not calibrated probabilities.", ""]
+    if config and "stemfoley_csv" in config["paths"]:
+        lines[0] = "# StemFoley source presence evaluation"
+        lines[2] = f"Eligible test examples: **{sample_count:,}**. Ground truth: target_audible; undetermined rows excluded."
+        lines = [line for line in lines if not line.startswith("- `yes`/`no` are the reference") and not line.startswith("- Sample duration follows")]
+        lines += ["", "## Results by difficulty", "",
+                  "CLAP/CNN14 report mean scores without a classification threshold. Failed, invalid, and unmapped rows are excluded from metrics; coverage is shown explicitly.", "",
+                  "| Model | Difficulty | Source present | Rows saved | Valid | Accuracy / mean score |",
+                  "|---|---|---|---:|---:|---:|"]
+        for path in llm_files + score_files:
+            saved = _read(path)
+            for difficulty in ("easy", "hard"):
+                for label in ("yes", "no"):
+                    group = [r for r in saved if r.get("difficulty") == difficulty and r.get("label") == label]
+                    valid = [r for r in group if r.get("status") == "ok" and
+                             (r.get("prediction") in {"yes", "no"} if path in llm_files else _finite(r.get("score")))]
+                    values = [float(r["prediction"] == r["label"]) if path in llm_files else float(r["score"]) for r in valid]
+                    metric = f"{sum(values)/len(values):.6f}" if values else "NA"
+                    lines.append(f"| {path.stem} | {difficulty} | {label} | {len(group)} | {len(valid)} | {metric} |")
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text("\n".join(lines), encoding="utf-8")
 

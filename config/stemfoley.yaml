@@ -1,0 +1,69 @@
+experiment:
+  name: stemfoley_presence_eval
+  seed: 0
+  batch_size: 16                 # score-model batch; LLM checkpoint interval
+  llm_micro_batch_size: 16        # Transformers backends halve the batch automatically on CUDA OOM
+  max_new_tokens: 1
+  temperature: 0.0
+  answer_language: english
+
+hardware:
+  gpu: NVIDIA A100 80GB
+  expected_vram_gb: 80
+
+paths:
+  stemfoley_csv: data/stemfoley_contam_v1/test_labels.csv
+  ontology_json: data/ontology.json
+  audio_cache: audio_cache
+  results: results/stemfoley
+
+audio:
+  sample_rate: 32000
+  channels: 1
+  yt_dlp_format: bestaudio/best
+  download_retries: 3
+  request_sleep_seconds: 0.5
+
+prompt:
+  # q3 + r1, Table 3: https://arxiv.org/html/2603.03855v1#S2.SS4
+  # Official Qwen3-Omni / AF3 inference code supplies no explicit system message.
+  template: >-
+    Does this audio contain the sound of {caption}?
+    Respond using only one word: yes or no.
+
+models:
+  gemini_3_pro:
+    backend: openrouter
+    # Keep the existing evaluation key; requests go through OpenRouter.
+    model_id: google/gemini-3.1-pro-preview
+    # Includes reasoning tokens as well as the final yes/no answer.
+    max_new_tokens: 4096
+  gemini_argon:
+    backend: openrouter
+    model_id: google/gemini-4-argon
+    model_id_env: OPENROUTER_ARGON_MODEL
+    max_new_tokens: 4096
+  kimi_audio_7b:
+    backend: kimi
+    # The base Kimi-Audio-7B is not instruction tuned. Use the official Instruct checkpoint.
+    model_id: moonshotai/Kimi-Audio-7B-Instruct
+  audio_flamingo_3:
+    llm_micro_batch_size: 64
+    backend: audio_flamingo
+    model_id: nvidia/audio-flamingo-3-hf
+  qwen3_omni_instruct:
+    backend: qwen3_omni
+    model_id: Qwen/Qwen3-Omni-30B-A3B-Instruct
+
+scoring:
+  clap:
+    text_template: "The sound of {caption}."
+    batch_size: 16
+
+  cnn14:
+    sample_rate: 32000
+    batch_size: 16
+    mapped_only: true
+
+report:
+  output: results/stemfoley/README.md

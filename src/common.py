@@ -24,6 +24,9 @@ def read_config(path: Path) -> dict[str, Any]:
 
 
 def load_samples(config: dict[str, Any]) -> list[dict[str, Any]]:
+    if "stemfoley_csv" in config["paths"]:
+        from src.stemfoley import load_stemfoley
+        return load_stemfoley(config)
     samples: list[dict[str, Any]] = []
     for label, key in (("yes", "positive_tsv"), ("no", "negative_tsv")):
         path: Path = config["paths"][key]
