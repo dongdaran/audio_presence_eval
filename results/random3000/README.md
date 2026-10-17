@@ -1,45 +1,46 @@
-# AudioSet caption presence evaluation results
+# AudioSet 대상 소리 존재 여부 평가 결과
 
-Input examples: **3,000** (positive and complete-frame-negative evaluation clip/class pairs).
+전체 평가 대상: **3,000** 개 (양성 및 전체 구간 음성 평가용 오디오·클래스 쌍).
 
-## LLM yes/no predictions
+## LLM 소리 존재 여부 예측
 
-Metrics use `yes` as the positive class. Invalid outputs and failed inferences are reported separately and excluded from the metric denominator.
+`yes`는 대상 소리가 있음, `no`는 없음입니다. 정확도는 정답/평가 개수, 정밀도는 yes 정답/yes 예측 개수, 재현율은 yes 정답/실제 yes 개수를 표시하며 괄호 안은 퍼센트입니다. 무효 응답과 추론 실패는 별도 집계하고 지표 분모에서 제외합니다. F1은 정밀도와 재현율을 종합한 0~1 점수로 표시합니다. TP·FN·FP·TN 열은 정답→예측 순서이며 단위는 개입니다.
 
-| Model | N scored | Invalid/failed | Accuracy | Precision (yes) | Recall (yes) | F1 (yes) | TP (yes→yes) | FN (yes→no) | FP (no→yes) | TN (no→no) |
+| 모델 | 유효 평가 개수 | 무효/실패 개수 | 정확도 (정답/평가) | 정밀도 (yes) | 재현율 (yes) | F1 (yes) | TP (있음→있음) | FN (있음→없음) | FP (없음→있음) | TN (없음→없음) |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| audio_flamingo_3 | 2558 | 442 | 0.5442 | 0.5771 | 0.0969 | 0.1660 | 116 | 1081 | 85 | 1276 |
-| qwen3_omni_instruct | 2643 | 357 | 0.5978 | 0.5526 | 0.7431 | 0.6338 | 920 | 318 | 745 | 660 |
+| audio_flamingo_3 | 2558 | 442 | 1,392/2,558 (54.42%) | 116/201 (57.71%) | 116/1,197 (9.69%) | 0.1660 | 116 | 1081 | 85 | 1276 |
+| kimi_audio_7b | 2482 | 518 | 1,526/2,482 (61.48%) | 1,032/1,863 (55.39%) | 1,032/1,157 (89.20%) | 0.6834 | 1032 | 125 | 831 | 494 |
+| qwen3_omni_instruct | 2643 | 357 | 1,580/2,643 (59.78%) | 920/1,665 (55.26%) | 920/1,238 (74.31%) | 0.6338 | 920 | 318 | 745 | 660 |
 
-## Configured model IDs
+## 설정된 모델 ID
 
-- `gemini_3_pro`: `google/gemini-3.1-pro-preview` (max new tokens: `4096`)
-- `gemini_argon`: `google/gemini-4-argon` (max new tokens: `4096`)
-- `kimi_audio_7b`: `moonshotai/Kimi-Audio-7B-Instruct` (max new tokens: `1`)
-- `audio_flamingo_3`: `nvidia/audio-flamingo-3-hf` (max new tokens: `1`)
-- `qwen3_omni_instruct`: `Qwen/Qwen3-Omni-30B-A3B-Instruct` (max new tokens: `1`)
+- `gemini_3_pro`: `google/gemini-3.1-pro-preview` (최대 생성 토큰: `4096`)
+- `gemini_argon`: `google/gemini-4-argon` (최대 생성 토큰: `4096`)
+- `kimi_audio_7b`: `moonshotai/Kimi-Audio-7B-Instruct` (최대 생성 토큰: `1`)
+- `audio_flamingo_3`: `nvidia/audio-flamingo-3-hf` (최대 생성 토큰: `1`)
+- `qwen3_omni_instruct`: `Qwen/Qwen3-Omni-30B-A3B-Instruct` (최대 생성 토큰: `1`)
 
-- Maximum new tokens: `1`
-- Score batch size: `16`
-- LLM Transformers micro-batch size: `128`
-- Requested GPU: `NVIDIA A100 80GB`
+- 최대 생성 토큰: `1`
+- 점수 모델 배치 크기: `16`
+- LLM Transformers 마이크로 배치 크기: `128`
+- 설정된 GPU: `NVIDIA A100 80GB`
 
-## CLAPScore / CNN14 mean scores by reference label
+## 정답 레이블별 CLAPScore / CNN14 평균 점수
 
-CLAPScore is audio/text cosine similarity. CNN14 is the AudioSet class score for the mapped MID. Neither score is thresholded into a yes/no prediction.
+CLAPScore는 오디오와 문장 임베딩 사이의 코사인 유사도입니다. CNN14는 매핑된 AudioSet 클래스 ID(MID)의 점수입니다. 두 점수 모두 임계값을 적용한 yes/no 판정이나 정확도가 아닙니다.
 
-Pooled mean is the mean over all scored samples; pooled SD is their standard deviation. Per-MID macro mean averages each MID's mean equally. Class-level tables below show yes/no means and their difference for each MID.
+전체 평균과 표준편차는 유효 점수가 있는 샘플을 기준으로 계산합니다. 소리별 평균의 평균은 원래 대상 소리 이름별 평균에 동일한 가중치를 줍니다. 클래스별 집계도 MID가 아닌 원래 대상 소리 이름을 기준으로 합니다. 아래 클래스별 표는 실제 소리가 있는 경우와 없는 경우의 평균 및 차이를 보여줍니다. 대상 소리 이름은 원본 데이터의 영문 표기를 유지합니다. NA는 계산 가능한 값이 없다는 뜻입니다.
 
-| Score | Reference label | N | MIDs scored | Pooled mean | Pooled SD | Per-MID macro mean |
+| 점수 종류 | 정답 (yes=있음, no=없음) | 유효 점수 개수 | 소리 종류 수 | 전체 평균 | 전체 표준편차 | 소리별 평균의 평균 |
 |---|---|---:|---:|---:|---:|---:|
 | clap | yes | 1198 | 109 | 0.201424 | 0.163592 | 0.271537 |
 | clap | no | 1357 | 110 | 0.099562 | 0.147713 | 0.100204 |
 | cnn14 | yes | 1197 | 109 | 0.178156 | 0.258317 | 0.286946 |
 | cnn14 | no | 1356 | 110 | 0.031201 | 0.078559 | 0.031525 |
 
-## CLAP scores by class
+## CLAPScore 클래스별 점수
 
-| MID | Caption | Yes N | Yes mean | No N | No mean | Yes minus no |
+| 클래스 ID (MID) | 대상 소리 (원문) | 있음 개수 | 있음 평균 | 없음 개수 | 없음 평균 | 있음 평균 − 없음 평균 |
 |---|---|---:|---:|---:|---:|---:|
 | /m/07q2z82 | Accelerating, revving, vroom | 52 | 0.264269 | 10 | 0.131247 | 0.133021 |
 | /m/0gvgw0 | Air brake | 5 | 0.203626 | 8 | 0.166824 | 0.036802 |
@@ -152,9 +153,9 @@ Pooled mean is the mean over all scored samples; pooled SD is their standard dev
 | /t/dd00092 | Wind noise (microphone) | 81 | 0.133464 | 20 | 0.149710 | -0.016247 |
 | /m/01s0vc | Zipper (clothing) | 2 | 0.326141 | 17 | 0.062386 | 0.263756 |
 
-## CNN14 scores by class
+## CNN14 클래스별 점수
 
-| MID | Caption | Yes N | Yes mean | No N | No mean | Yes minus no |
+| 클래스 ID (MID) | 대상 소리 (원문) | 있음 개수 | 있음 평균 | 없음 개수 | 없음 평균 | 있음 평균 − 없음 평균 |
 |---|---|---:|---:|---:|---:|---:|
 | /m/07q2z82 | Accelerating, revving, vroom | 52 | 0.131460 | 10 | 0.036527 | 0.094932 |
 | /m/0gvgw0 | Air brake | 5 | 0.256213 | 8 | 0.081746 | 0.174467 |
@@ -267,9 +268,9 @@ Pooled mean is the mean over all scored samples; pooled SD is their standard dev
 | /t/dd00092 | Wind noise (microphone) | 81 | 0.042487 | 20 | 0.021804 | 0.020684 |
 | /m/01s0vc | Zipper (clothing) | 2 | 0.354868 | 17 | 0.006422 | 0.348447 |
 
-## Notes
+## 참고 사항
 
-- `yes`/`no` are the reference labels from the existing evaluation TSVs; each row is one clip/class pair.
-- Sample duration follows the source TSV. Some positive clips are shorter than 10 seconds; no padding is applied to model input audio.
-- Failed downloads/inferences and unmapped CNN14 classes remain visible in result TSVs and are excluded from score means where no score exists.
-- CLAPScore values are similarity scores, not calibrated probabilities.
+- `yes`/`no`는 기존 평가 TSV의 정답이며, 각 행은 오디오·클래스 쌍 하나입니다.
+- 오디오 길이는 원본 TSV를 따릅니다. 일부 양성 오디오는 10초보다 짧으며 모델 입력에 패딩을 추가하지 않습니다.
+- 다운로드·추론 실패 및 CNN14 클래스 미매핑 항목은 결과 TSV에 남아 있으며, 유효 점수가 없으면 평균에서 제외합니다.
+- CLAPScore는 유사도 점수이며, 보정된 확률이 아닙니다.

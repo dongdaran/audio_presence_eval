@@ -1,4 +1,4 @@
-sample_id	split	clip_id	video_id	clip_start_seconds	clip_end_seconds	duration_seconds	mid	caption	label	model	model_id	raw_response	prediction	status	error
+nsample_id	split	clip_id	video_id	clip_start_seconds	clip_end_seconds	duration_seconds	mid	caption	label	model	model_id	raw_response	prediction	status	error
 da827ba92f1f7b55cd774c8496d7f9b25011ce1c	evaluation	5xNifFUzmCc_60000	5xNifFUzmCc	60.0	70.0	10.0	/m/053hz1	Cheering	yes	qwen3_omni_instruct	Qwen/Qwen3-Omni-30B-A3B-Instruct		invalid	error	"RuntimeError: Audio download failed for 5xNifFUzmCc_60000: ERROR: [youtube] 5xNifFUzmCc: Sign in to confirm your age. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
 "
 51346d10418ce57264c957c78d874d7bce54147c	evaluation	d7I4Z5t8Xdo_110000	d7I4Z5t8Xdo	110.0	120.0	10.0	/m/07q0h5t	Bleat	yes	qwen3_omni_instruct	Qwen/Qwen3-Omni-30B-A3B-Instruct	yes	yes	ok	

@@ -1,0 +1,6 @@
+CNN14: evaluating 2 mapped samples; skipping 0 unmapped targets
+Scores: resuming 0 saved; 2 pending; output: /workspace/audio_presence_eval/results/stemfoley/smoke_cnn14_mapped_scores.tsv
+Checkpoint path: /workspace/.hf_home/hub/models--thelou1s--panns-inference/snapshots/5546cbe0c06a7695a23c041ef5e6dab76b3312d6/Cnn14_mAP=0.431.pth
+GPU number: 1
+CNN14 batch_size=16
+CNN14: 2/2
