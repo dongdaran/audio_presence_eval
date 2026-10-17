@@ -1,0 +1,33 @@
+sample_id	split	clip_id	video_id	clip_start_seconds	clip_end_seconds	duration_seconds	mid	caption	label	model	model_id	raw_response	prediction	status	error
+51346d10418ce57264c957c78d874d7bce54147c	evaluation	d7I4Z5t8Xdo_110000	d7I4Z5t8Xdo	110.0	120.0	10.0	/m/07q0h5t	Bleat	yes	gemini_3_pro_medium	google/gemini-3.1-pro-preview		invalid	error	"RuntimeError: Audio download failed for d7I4Z5t8Xdo_110000: /home/dongdaran/korean_mmqa/.venv/bin/python: No module named yt_dlp
+"
+704fccdf682eee5dbb6aa67de0bddc52708f2f81	evaluation	mYI2QzLce_s_30000	mYI2QzLce_s	30.0	40.0	10.0	/t/dd00092	Wind noise (microphone)	yes	gemini_3_pro_medium	google/gemini-3.1-pro-preview		invalid	error	"RuntimeError: Audio download failed for mYI2QzLce_s_30000: /home/dongdaran/korean_mmqa/.venv/bin/python: No module named yt_dlp
+"
+7d42e46caa2a2b3b943d4b0ab02ac6c33bf28c3b	evaluation	ztfegVzqeCI_30000	ztfegVzqeCI	30.0	40.0	10.0	/t/dd00004	Female singing	yes	gemini_3_pro_medium	google/gemini-3.1-pro-preview		invalid	error	"RuntimeError: Audio download failed for ztfegVzqeCI_30000: /home/dongdaran/korean_mmqa/.venv/bin/python: No module named yt_dlp
+"
+389a2792b3c4830dab1e1c9c6162a027dacd9d58	evaluation	WLX3Db60418_20000	WLX3Db60418	20.0	30.0	10.0	/m/07q2z82	Accelerating, revving, vroom	yes	gemini_3_pro_medium	google/gemini-3.1-pro-preview		invalid	error	"RuntimeError: Audio download failed for WLX3Db60418_20000: /home/dongdaran/korean_mmqa/.venv/bin/python: No module named yt_dlp
+"
+7ff55195af30e0143570e441fdd5a4cd61153c35	evaluation	KRdvyjpQfoI_0	KRdvyjpQfoI	0.0	10.0	10.0	/m/05tny_	Bark	yes	gemini_3_pro_medium	google/gemini-3.1-pro-preview		invalid	error	"RuntimeError: Audio download failed for KRdvyjpQfoI_0: /home/dongdaran/korean_mmqa/.venv/bin/python: No module named yt_dlp
+"
+6c705e96be1112a328cfade6b1901659914c34b7	evaluation	hx1ceLUq8AA_30000	hx1ceLUq8AA	30.0	40.0	10.0	/m/04zjc	Machine gun	yes	gemini_3_pro_medium	google/gemini-3.1-pro-preview		invalid	error	"RuntimeError: Audio download failed for hx1ceLUq8AA_30000: /home/dongdaran/korean_mmqa/.venv/bin/python: No module named yt_dlp
+"
+2f9aa52533326baff66e90dbda69859c92388f8d	evaluation	KWGON3DlOdw_40000	KWGON3DlOdw	40.0	50.0	10.0	/m/06d_3	Rail transport	yes	gemini_3_pro_medium	google/gemini-3.1-pro-preview		invalid	error	"RuntimeError: Audio download failed for KWGON3DlOdw_40000: /home/dongdaran/korean_mmqa/.venv/bin/python: No module named yt_dlp
+"
+00d331088a666c8dcb74828c631ec7a3fcd09876	evaluation	DlaEUR5O_iY_10000	DlaEUR5O_iY	10.0	20.0	10.0	/m/01h82_	Engine knocking	yes	gemini_3_pro_medium	google/gemini-3.1-pro-preview		invalid	error	"RuntimeError: Audio download failed for DlaEUR5O_iY_10000: /home/dongdaran/korean_mmqa/.venv/bin/python: No module named yt_dlp
+"
+61f9ee0d808675db458b571795fb93753c373a9e	evaluation	bTpyRPAbcCI_30000	bTpyRPAbcCI	30.0	40.0	10.0	/m/0395lw	Bell	yes	gemini_3_pro_medium	google/gemini-3.1-pro-preview		invalid	error	"RuntimeError: Audio download failed for bTpyRPAbcCI_30000: /home/dongdaran/korean_mmqa/.venv/bin/python: No module named yt_dlp
+"
+450fd746b2af5e2e3f4fb283fc566368742c914c	evaluation	LRODueKSk2M_40000	LRODueKSk2M	40.0	50.0	10.0	/t/dd00004	Female singing	yes	gemini_3_pro_medium	google/gemini-3.1-pro-preview		invalid	error	"RuntimeError: Audio download failed for LRODueKSk2M_40000: /home/dongdaran/korean_mmqa/.venv/bin/python: No module named yt_dlp
+"
+216da1d06900fcd9835e3893804550b54518626f	evaluation	o2oGJ1jhzNM_60000	o2oGJ1jhzNM	60.0	70.0	10.0	/m/053hz1	Cheering	yes	gemini_3_pro_medium	google/gemini-3.1-pro-preview		invalid	error	"RuntimeError: Audio download failed for o2oGJ1jhzNM_60000: /home/dongdaran/korean_mmqa/.venv/bin/python: No module named yt_dlp
+"
+7c6ba48ea92366681a439b0d5020cecbd7217f48	evaluation	EPvnkbo5wrI_150000	EPvnkbo5wrI	150.0	160.0	10.0	/t/dd00003	Male singing	yes	gemini_3_pro_medium	google/gemini-3.1-pro-preview		invalid	error	"RuntimeError: Audio download failed for EPvnkbo5wrI_150000: /home/dongdaran/korean_mmqa/.venv/bin/python: No module named yt_dlp
+"
+8b1808b3dd3cb88d12924961b139de221ec14c7e	evaluation	BQpa8whzwAE_30000	BQpa8whzwAE	30.0	40.0	10.0	/m/0284vy3	Train horn	yes	gemini_3_pro_medium	google/gemini-3.1-pro-preview		invalid	error	"RuntimeError: Audio download failed for BQpa8whzwAE_30000: /home/dongdaran/korean_mmqa/.venv/bin/python: No module named yt_dlp
+"
+2ab319f8555d29c8363b7c245f689fde4b98ff8c	evaluation	snrWV4ZVnwk_20000	snrWV4ZVnwk	20.0	30.0	10.0	/m/03dnzn	Bathtub (filling or washing)	yes	gemini_3_pro_medium	google/gemini-3.1-pro-preview		invalid	error	"RuntimeError: Audio download failed for snrWV4ZVnwk_20000: /home/dongdaran/korean_mmqa/.venv/bin/python: No module named yt_dlp
+"
+dc09f5380b9efedeca0ddb2e64f398abe1760724	evaluation	yyip4ryLVDo_30000	yyip4ryLVDo	30.0	40.0	10.0	/t/dd00005	Child singing	yes	gemini_3_pro_medium	google/gemini-3.1-pro-preview		invalid	error	"RuntimeError: Audio download failed for yyip4ryLVDo_30000: /home/dongdaran/korean_mmqa/.venv/bin/python: No module named yt_dlp
+"
+83048c22b5a10cc0df093e0a1d2e2fb2fb10d8ea	evaluation	pXDNMv9t990_30000	pXDNMv9t990	30.0	40.0	10.0	/m/04229	Jet engine	yes	gemini_3_pro_medium	google/gemini-3.1-pro-preview		invalid	error	"RuntimeError: Audio download failed for pXDNMv9t990_30000: /home/dongdaran/korean_mmqa/.venv/bin/python: No module named yt_dlp
+"

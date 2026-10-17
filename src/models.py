@@ -34,6 +34,21 @@ class LLM:
                 headers={"Authorization": f"Bearer {api_key}"},
                 timeout=120.0,
             )
+        elif self.backend in {"gemma4", "qwen2_audio"}:
+            import torch
+            from transformers import AutoProcessor
+            if not torch.cuda.is_available():
+                raise RuntimeError(f"{self.key} requires a CUDA GPU; run with the project's .venv on the GPU machine")
+            if self.backend == "gemma4":
+                from transformers import Gemma4ForConditionalGeneration as ModelClass
+            else:
+                from transformers import Qwen2AudioForConditionalGeneration as ModelClass
+            dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
+            self.processor = AutoProcessor.from_pretrained(model_id)
+            self.processor.tokenizer.padding_side = "left"
+            self.model = ModelClass.from_pretrained(
+                model_id, dtype=dtype, device_map="auto",
+            ).eval()
         elif self.backend == "kimi":
             from kimia_infer.api import kimia
             # Upstream hard-codes disable=False for a new token bar on every sample.
@@ -61,7 +76,8 @@ class LLM:
 
     def predict(self, sample: dict, audio_file: Path) -> str:
         prompt = self.config.get("prompt", {}).get("template", PROMPT).format(caption=sample["caption"])
-        max_tokens = int(self.spec.get("max_new_tokens", self.config["experiment"].get("max_new_tokens", 1)))
+        token_limit = self.spec.get("max_new_tokens", self.config["experiment"].get("max_new_tokens", 1))
+        max_tokens = int(token_limit) if token_limit is not None else None
         if self.backend == "openrouter":
             response = self.model.post(
                 "chat/completions",
@@ -75,8 +91,8 @@ class LLM:
                         }},
                     ]}],
                     "temperature": float(self.config["experiment"].get("temperature", 0.0)),
-                    "max_tokens": max_tokens,
-                    "reasoning": {"effort": "low", "exclude": True},
+                    **({"max_tokens": max_tokens} if max_tokens is not None else {}),
+                    "reasoning": {"effort": self.spec.get("reasoning_effort", "low"), "exclude": True},
                 },
             )
             if response.is_error:
@@ -111,6 +127,10 @@ class LLM:
             raise ValueError("samples/audio_files length mismatch")
         if self.backend in {"openrouter", "kimi"}:
             return [self.predict(sample, path) for sample, path in zip(samples, audio_files)]
+        if not samples:
+            return []
+        if self.backend in {"gemma4", "qwen2_audio"}:
+            return self._predict_local_audio_batch(samples, audio_files)
         max_tokens = int(self.spec.get("max_new_tokens", self.config["experiment"].get("max_new_tokens", 1)))
         template = self.config.get("prompt", {}).get("template", PROMPT)
         conversations = []
@@ -135,5 +155,39 @@ class LLM:
         ).to(device=self.model.device, dtype=self.model.dtype)
         output_ids = self.model.generate(**inputs, max_new_tokens=max_tokens, do_sample=False)
         generated = output_ids[:, inputs["input_ids"].shape[1]:]
+        return self.processor.batch_decode(generated, skip_special_tokens=True)
+
+    def _predict_local_audio_batch(self, samples, audio_files):
+        import torch
+        template = self.config.get("prompt", {}).get("template", PROMPT)
+        conversations = []
+        for sample, path in zip(samples, audio_files):
+            text = {"type": "text", "text": template.format(caption=sample["caption"])}
+            if self.backend == "gemma4":
+                content = [text, {"type": "audio", "audio": str(path)}]
+            else:
+                content = [{"type": "audio", "audio_url": str(path)}, text]
+            conversations.append([{"role": "user", "content": content}])
+        if self.backend == "gemma4":
+            inputs = self.processor.apply_chat_template(
+                conversations, tokenize=True, add_generation_prompt=True,
+                enable_thinking=False, return_dict=True, return_tensors="pt",
+                text_kwargs={"padding": True},
+            )
+        else:
+            import librosa
+            rate = self.processor.feature_extractor.sampling_rate
+            texts = [self.processor.apply_chat_template(
+                conversation, tokenize=False, add_generation_prompt=True,
+            ) for conversation in conversations]
+            audios = [librosa.load(str(path), sr=rate, mono=True)[0] for path in audio_files]
+            inputs = self.processor(
+                text=texts, audio=audios, sampling_rate=rate, padding=True, return_tensors="pt",
+            )
+        inputs = inputs.to(device=self.model.device, dtype=self.model.dtype)
+        max_tokens = int(self.spec.get("max_new_tokens", 16))
+        with torch.inference_mode():
+            outputs = self.model.generate(**inputs, max_new_tokens=max_tokens, do_sample=False)
+        generated = outputs[:, inputs["input_ids"].shape[1]:]
         return self.processor.batch_decode(generated, skip_special_tokens=True)
 

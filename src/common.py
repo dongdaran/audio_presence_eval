@@ -69,12 +69,10 @@ def append_jsonl(path: Path, row: dict[str, Any]) -> None:
 
 
 def normalize_yes_no(text: str) -> str:
-    cleaned = re.sub(r"[^a-z]+", " ", text.lower()).strip().split()
-    if not cleaned:
-        return "invalid"
-    first = cleaned[0]
-    if first in {"yes", "no"}:
-        return first
-    if first in {"yes.", "no."}:
-        return first.rstrip(".")
-    return "invalid"
+    """Extract a standalone answer, allowing surrounding explanation/formatting.
+
+    Conflicting yes/no mentions remain invalid rather than guessing a verdict.
+    """
+    answers = set(re.findall(r"\b(?:yes|no)\b", text, flags=re.IGNORECASE))
+    answers = {answer.lower() for answer in answers}
+    return answers.pop() if len(answers) == 1 else "invalid"

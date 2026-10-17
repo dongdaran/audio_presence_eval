@@ -1,4 +1,5 @@
 audio_cache/
+data/stemfoley_contam_v1.zip
 model_cache/
 results/*.tsv
 __pycache__/

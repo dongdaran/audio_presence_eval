@@ -1,0 +1,46 @@
+experiment:
+  name: stemfoley_presence_eval
+  seed: 0
+  batch_size: 16
+  llm_micro_batch_size: 16
+  max_new_tokens: 1
+  temperature: 0.0
+  answer_language: english
+hardware:
+  gpu: NVIDIA A100 80GB
+  expected_vram_gb: 80
+paths:
+  stemfoley_csv: data/stemfoley_contam_v1/test_labels.csv
+  ontology_json: data/ontology.json
+  audio_cache: audio_cache
+  results: results/stemfoley
+audio:
+  sample_rate: 32000
+  channels: 1
+  yt_dlp_format: bestaudio/best
+  download_retries: 3
+  request_sleep_seconds: 0.5
+prompt:
+  template: 'Does this audio contain the sound of {caption}? Respond using only one
+    word: yes or no.'
+models:
+  gemma4_e4b_it:
+    backend: gemma4
+    model_id: google/gemma-4-E4B-it
+    max_new_tokens: 16
+    llm_micro_batch_size: 1
+  qwen2_audio_7b_instruct:
+    backend: qwen2_audio
+    model_id: Qwen/Qwen2-Audio-7B-Instruct
+    max_new_tokens: 16
+    llm_micro_batch_size: 1
+scoring:
+  clap:
+    text_template: The sound of {caption}.
+    batch_size: 16
+  cnn14:
+    sample_rate: 32000
+    batch_size: 16
+    mapped_only: true
+report:
+  output: results/stemfoley/local_audio_report.md

@@ -1,0 +1,39 @@
+{
+  "train": {
+    "all_rows": 21132,
+    "is_rows": 8478,
+    "answer_counts": {
+      "no": 3508,
+      "yes": 4970
+    },
+    "unique_audio": 1123,
+    "unique_questions": 2825,
+    "majority_answers": {
+      "no": 1160,
+      "yes": 1665
+    },
+    "ties": 0,
+    "annotations_per_question": {
+      "3": 2824,
+      "6": 1
+    }
+  },
+  "test": {
+    "all_rows": 8514,
+    "is_rows": 3399,
+    "answer_counts": {
+      "no": 1424,
+      "yes": 1975
+    },
+    "unique_audio": 457,
+    "unique_questions": 1133,
+    "majority_answers": {
+      "no": 472,
+      "yes": 661
+    },
+    "ties": 0,
+    "annotations_per_question": {
+      "3": 1133
+    }
+  }
+}

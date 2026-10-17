@@ -1,0 +1,32 @@
+Run: task=llm model=gemini_3_pro_medium rows=2482 limit=None results=/home/dongdaran/audiosetstrong/experiments/audio_presence_eval/results/random3000_omni_intersection
+LLM output: /home/dongdaran/audiosetstrong/experiments/audio_presence_eval/results/random3000_omni_intersection/llm_gemini_3_pro_medium.tsv (2482 rows)
+LLM gemini_3_pro_medium: micro_batch=1; saved_ok=0; pending=2482
+gemini_3_pro_medium: 1/2482
+gemini_3_pro_medium: 2/2482
+gemini_3_pro_medium: 3/2482
+gemini_3_pro_medium: 4/2482
+gemini_3_pro_medium: 5/2482
+gemini_3_pro_medium: 6/2482
+gemini_3_pro_medium: 7/2482
+gemini_3_pro_medium: 8/2482
+gemini_3_pro_medium: 9/2482
+gemini_3_pro_medium: 10/2482
+gemini_3_pro_medium: 11/2482
+gemini_3_pro_medium: 12/2482
+gemini_3_pro_medium: 13/2482
+gemini_3_pro_medium: 14/2482
+gemini_3_pro_medium: 15/2482
+gemini_3_pro_medium: 16/2482
+gemini_3_pro_medium: 17/2482
+gemini_3_pro_medium: 18/2482
+gemini_3_pro_medium: 19/2482
+gemini_3_pro_medium: 20/2482
+gemini_3_pro_medium: 21/2482
+gemini_3_pro_medium: 22/2482
+gemini_3_pro_medium: 23/2482
+gemini_3_pro_medium: 24/2482
+gemini_3_pro_medium: 25/2482
+gemini_3_pro_medium: 26/2482
+gemini_3_pro_medium: 27/2482
+gemini_3_pro_medium: 28/2482
+gemini_3_pro_medium: 29/2482

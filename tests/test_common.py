@@ -17,6 +17,19 @@ class ExperimentCommonTests(unittest.TestCase):
         self.assertEqual(normalize_yes_no("No."), "no")
         self.assertEqual(normalize_yes_no("maybe"), "invalid")
 
+    def test_extracts_binary_answer_from_explanation(self):
+        for response, expected in [
+            ('The answer is **YES**. A dog is barking.', 'yes'),
+            ('After listening, my answer is: no.', 'no'),
+            ('```json\n{"answer": "yes"}\n```', 'yes'),
+            ('Yes. YES.', 'yes'),
+            ('yes or no', 'invalid'),
+            ('Yesterday was noisy.', 'invalid'),
+            ('', 'invalid'),
+        ]:
+            with self.subTest(response=response):
+                self.assertEqual(normalize_yes_no(response), expected)
+
     def test_loads_existing_eval_pairs_with_unique_ids(self):
         config = read_config(ROOT / "config/experiment.yaml")
         samples = load_samples(config)

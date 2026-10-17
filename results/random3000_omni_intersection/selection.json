@@ -1,0 +1,66 @@
+{
+  "source": "results/random3000",
+  "criterion": "All three audio LLMs have status=ok and prediction in {yes,no}, joined by sample_id",
+  "models": [
+    "audio_flamingo_3",
+    "kimi_audio_7b",
+    "qwen3_omni_instruct"
+  ],
+  "successful_counts_before_intersection": {
+    "audio_flamingo_3": 2558,
+    "kimi_audio_7b": 2482,
+    "qwen3_omni_instruct": 2643
+  },
+  "intersection_count": 2482,
+  "excluded_count": 518,
+  "files": {
+    "clap_scores.tsv": {
+      "rows": 2482,
+      "statuses": {
+        "ok": 2482
+      }
+    },
+    "cnn14_scores.tsv": {
+      "rows": 2482,
+      "statuses": {
+        "ok": 2482
+      }
+    },
+    "llm_audio_flamingo_3.tsv": {
+      "rows": 2482,
+      "statuses": {
+        "ok": 2482
+      }
+    },
+    "llm_kimi_audio_7b.tsv": {
+      "rows": 2482,
+      "statuses": {
+        "ok": 2482
+      }
+    },
+    "llm_qwen3_omni_instruct.tsv": {
+      "rows": 2482,
+      "statuses": {
+        "ok": 2482
+      }
+    },
+    "no_samples.tsv": {
+      "rows": 1325,
+      "statuses": {
+        "": 1325
+      }
+    },
+    "samples.tsv": {
+      "rows": 2482,
+      "statuses": {
+        "": 2482
+      }
+    },
+    "yes_samples.tsv": {
+      "rows": 1157,
+      "statuses": {
+        "": 1157
+      }
+    }
+  }
+}

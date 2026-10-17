@@ -1,0 +1,21 @@
+index	sample_id	video_id	clip_start_seconds	clip_end_seconds	caption	caption_ko	label	youtube_url	audio_flamingo_3	kimi_audio_7b	qwen3_omni_instruct	human_label	notes
+1	e256a5d76485a007be9b9c1de87c18d2edb380fa	U5wpGWF816Q	30.0	40.0	Baby cry, infant cry	아기 울음소리	no	https://www.youtube.com/watch?v=U5wpGWF816Q&t=30s	no	yes	yes		
+2	d04d000bdc5fdcb81bb282fcb9ab3d2f8ea71fe2	UqMeR5Erq8I	30.0	40.0	Bleat	양·염소가 매애 우는 소리	no	https://www.youtube.com/watch?v=UqMeR5Erq8I&t=30s	no	no	no		
+3	94efa535c3562c95e038d5a18cd3ed25473f9fb9	LYAzEd0j1Q8	360.0	370.0	Dial tone	전화 발신음	no	https://www.youtube.com/watch?v=LYAzEd0j1Q8&t=360s	no	no	yes		
+4	1b6885231b8d1ca55866f5d5be4f60eb16a6729f	7LoVjl-6wlc	90.0	100.0	Rail transport	철도 교통수단 소리	no	https://www.youtube.com/watch?v=7LoVjl-6wlc&t=90s	no	yes	yes		
+5	9d71f27f20f8a060bbb8b075958cb15b1afd05f2	wKoFJHb2BoI	30.0	40.0	Chorus effect	코러스 음향 효과	no	https://www.youtube.com/watch?v=wKoFJHb2BoI&t=30s	no	yes	yes		
+6	bb3c3ec1809f101acc6213a31989938d109be1e7	f_uADyhDDpE	40.0	50.0	Pump (liquid)	액체 펌프 소리	no	https://www.youtube.com/watch?v=f_uADyhDDpE&t=40s	no	yes	yes		
+7	3d0071d7563ddd5a726ff5d1ee3e2c329e69d033	AiHZ9hODcXg	450.0	460.0	Alarm clock	알람시계 소리	no	https://www.youtube.com/watch?v=AiHZ9hODcXg&t=450s	no	yes	yes		
+8	9f0e37b4ba65e002d7ade3e26ea8c0706a6e20ca	aBHdl_TiseI	30.0	40.0	Lawn mower	잔디깎이 소리	no	https://www.youtube.com/watch?v=aBHdl_TiseI&t=30s	no	yes	yes		
+9	77ac36358a1fbd8d7f7158bce3295c95d7ab2a4f	0pewITE1550	30.0	40.0	Zipper (clothing)	옷 지퍼 여닫는 소리	no	https://www.youtube.com/watch?v=0pewITE1550&t=30s	no	no	yes		
+10	ec7796e346bcd41531e8915cae3aa951ade468a8	6OgSNQOTw2U	60.0	70.0	Train whistle	기차 기적 소리	no	https://www.youtube.com/watch?v=6OgSNQOTw2U&t=60s	no	no	no		
+11	8cbeb886fd6a2f021fe926ac963d2c1bc6778755	zj6a5P28xOs	160.0	170.0	Pump (liquid)	액체 펌프 소리	no	https://www.youtube.com/watch?v=zj6a5P28xOs&t=160s	no	yes	yes		
+12	1f37bdd9fa6289f00fef7a696b59ff263e8e3945	kf0YrFpuNKQ	30.0	40.0	Cap gun	장난감 화약총 소리	no	https://www.youtube.com/watch?v=kf0YrFpuNKQ&t=30s	no	yes	yes		
+13	66772ce5f2923579e633f69cbfa8662963c79fec	nZOwmMS7kwA	300.0	310.0	Aircraft engine	항공기 엔진 소리	no	https://www.youtube.com/watch?v=nZOwmMS7kwA&t=300s	no	yes	yes		
+14	ae6ff7a423ad786b40e2d6153e0dc2759ec41061	uAB0hA7zxKI	30.0	40.0	Drawer open or close	서랍을 열거나 닫는 소리	no	https://www.youtube.com/watch?v=uAB0hA7zxKI&t=30s	no	yes	no		
+15	432424dcddb26453258d5b7a9294112ee51a0f30	Qb6N3HvbmgQ	580.0	590.0	Dial tone	전화 발신음	no	https://www.youtube.com/watch?v=Qb6N3HvbmgQ&t=580s	no	yes	yes		
+16	8f6b26959c263f573221efc83e0c6c1f4b5214ff	Kqo7am5oq0U	40.0	50.0	Telephone bell ringing	전화벨이 울리는 소리	no	https://www.youtube.com/watch?v=Kqo7am5oq0U&t=40s	no	no	no		
+17	56f97d42a94d82aacb0ce68c88523650ce8de208	sgpy4uk4bB0	90.0	100.0	Hair dryer	헤어드라이어 소리	no	https://www.youtube.com/watch?v=sgpy4uk4bB0&t=90s	no	yes	yes		
+18	52d0416af7c4e7f2bf1155d0e0261b6e92552046	zO5qW0tKWXs	12.0	22.0	Toilet flush	변기 물 내리는 소리	no	https://www.youtube.com/watch?v=zO5qW0tKWXs&t=12s	no	no	yes		
+19	048a397d287562dfb15490456794632c0696fcea	IVAKnogaqU0	30.0	40.0	Boiling	끓는 소리	no	https://www.youtube.com/watch?v=IVAKnogaqU0&t=30s	no	no	no		
+20	f2a392dca313d46347e260d21fcd107fcb3c9c1a	U9K3zy7YRLs	60.0	70.0	Bicycle bell	자전거 벨 소리	no	https://www.youtube.com/watch?v=U9K3zy7YRLs&t=60s	no	yes	yes		

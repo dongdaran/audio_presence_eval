@@ -1,0 +1,26 @@
+{
+  "train": {
+    "questions": 516,
+    "audio": 421,
+    "forms": {
+      "noun_ing": 293,
+      "noun": 223
+    },
+    "answers": {
+      "no": 270,
+      "yes": 246
+    }
+  },
+  "test": {
+    "questions": 221,
+    "audio": 180,
+    "forms": {
+      "noun_ing": 121,
+      "noun": 100
+    },
+    "answers": {
+      "yes": 103,
+      "no": 118
+    }
+  }
+}

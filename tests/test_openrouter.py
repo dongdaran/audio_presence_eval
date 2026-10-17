@@ -32,6 +32,10 @@ class OpenRouterTests(unittest.TestCase):
                 audio = Path(folder) / 'clip.wav'
                 audio.write_bytes(b'test-wav-bytes')
                 self.assertEqual(model.predict_batch([{'caption': 'a dog'}], [audio]), ['yes'])
+                model.spec.update(max_new_tokens=None, reasoning_effort='medium')
+                self.assertEqual(model.predict({'caption': 'a dog'}, audio), 'yes')
+        self.assertNotIn('max_tokens', requests[1][1])
+        self.assertEqual(requests[1][1]['reasoning'], {'effort': 'medium', 'exclude': True})
         request, payload = requests[0]
         self.assertEqual(str(request.url), 'https://openrouter.ai/api/v1/chat/completions')
         self.assertEqual(payload['model'], 'google/test-audio')

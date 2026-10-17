@@ -1,5 +1,51 @@
 # AudioSet Presence Evaluation
 
+## Gemma 4 E4B / Qwen2-Audio 로컬 GPU 평가
+
+현재 프로젝트의 `.venv`를 사용합니다. 두 모델의 입력 처리는 공식
+[Gemma 4 모델 카드](https://huggingface.co/google/gemma-4-E4B-it)와
+[Qwen2-Audio 문서](https://huggingface.co/docs/transformers/model_doc/qwen2_audio)를 따릅니다.
+Gemma는 thinking을 끄고, Qwen2-Audio는 processor의 샘플레이트로 오디오를 변환합니다.
+두 모델 모두 greedy decoding, 최대 16개 출력 토큰, micro batch 1로 시작합니다.
+
+GPU 머신의 이 프로젝트 디렉터리에서 설치합니다. Gemma 4에는 Transformers 5.5 이상이
+필요하므로 이 환경에 기존 `requirements.txt`(Transformers 5.2 고정)를 함께 설치하지 않습니다.
+
+```bash
+uv venv .venv  # .venv가 없는 경우만 실행
+uv pip install --python .venv/bin/python -c constraints-gpu.txt \
+  torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
+uv pip install --python .venv/bin/python -r requirements-local-audio.txt
+.venv/bin/python -c "import torch; from transformers import Gemma4ForConditionalGeneration, Qwen2AudioForConditionalGeneration; assert torch.cuda.is_available(); print(torch.cuda.get_device_name(0))"
+```
+
+먼저 StemFoley와 intersection에서 각 모델 2개씩 확인합니다.
+
+```bash
+bash scripts/run_local_audio.sh all --limit 2
+```
+
+전체 실행은 **StemFoley 476개 + Gemini와 동일한 intersection 무작위 1,000개**입니다.
+한 GPU에서 두 모델을 순차 실행합니다. 가중치는 첫 실행 시 다운로드합니다.
+
+```bash
+bash scripts/run_local_audio.sh all
+# 모델 하나만 선택
+bash scripts/run_local_audio.sh gemma
+bash scripts/run_local_audio.sh qwen2
+```
+
+결과는 `results/stemfoley/llm_gemma4_e4b_it.tsv`, `llm_qwen2_audio_7b_instruct.tsv`와
+`results/random1000_omni_intersection/`의 동일한 파일명에 저장합니다.
+성공 결과는 재실행 시 건너뜁니다. `--limit 2` 결과는 별도의 `smoke_` 파일입니다.
+GPU가 두 개라면 다음처럼 모델마다 GPU를 지정해 병렬 실행할 수 있습니다.
+
+```bash
+CUDA_VISIBLE_DEVICES=0 bash scripts/run_local_audio.sh gemma > results/gemma4_gpu.log 2>&1 &
+CUDA_VISIBLE_DEVICES=1 bash scripts/run_local_audio.sh qwen2 > results/qwen2_audio_gpu.log 2>&1 &
+wait
+```
+
 ## StemFoley test 평가
 
 `config/stemfoley.yaml`은 `data/stemfoley_contam_v1/test_labels.csv`의 476개
