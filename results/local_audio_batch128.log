@@ -1,0 +1,17 @@
+Run: task=llm model=gemma4_e4b_it rows=476 limit=None results=/workspace/audio_presence_eval/results/stemfoley
+LLM output: /workspace/audio_presence_eval/results/stemfoley/llm_gemma4_e4b_it.tsv (476 rows)
+LLM gemma4_e4b_it: micro_batch=128; saved_ok=0; pending=476
+Loading weights:   0%|          | 0/2076 [00:00<?, ?it/s]Loading weights:  27%|██▋       | 552/2076 [00:00<00:00, 5516.73it/s]Loading weights:  53%|█████▎    | 1104/2076 [00:01<00:01, 780.51it/s]Loading weights:  66%|██████▌   | 1360/2076 [00:01<00:00, 776.62it/s]Loading weights:  74%|███████▍  | 1535/2076 [00:01<00:00, 863.20it/s]Loading weights:  96%|█████████▌| 1991/2076 [00:01<00:00, 1348.40it/s]Loading weights: 100%|██████████| 2076/2076 [00:01<00:00, 1147.81it/s]
+[transformers] Kwargs passed to `processor.__call__` have to be in `processor_kwargs` dict, not in `**kwargs`
+gemma4_e4b_it: 128/476
+[transformers] Kwargs passed to `processor.__call__` have to be in `processor_kwargs` dict, not in `**kwargs`
+gemma4_e4b_it: 256/476
+[transformers] Kwargs passed to `processor.__call__` have to be in `processor_kwargs` dict, not in `**kwargs`
+gemma4_e4b_it: 384/476
+[transformers] Kwargs passed to `processor.__call__` have to be in `processor_kwargs` dict, not in `**kwargs`
+gemma4_e4b_it: 476/476
+Completed: task=llm; results: /workspace/audio_presence_eval/results/stemfoley; report: /workspace/audio_presence_eval/results/stemfoley/local_audio_report.md
+Run: task=llm model=gemma4_e4b_it rows=1000 limit=None results=/workspace/audio_presence_eval/results/random1000_omni_intersection
+LLM output: /workspace/audio_presence_eval/results/random1000_omni_intersection/llm_gemma4_e4b_it.tsv (1000 rows)
+LLM gemma4_e4b_it: micro_batch=128; saved_ok=0; pending=1000
+Loading weights:   0%|          | 0/2076 [00:00<?, ?it/s]Loading weights:  31%|███       | 645/2076 [00:00<00:00, 6434.39it/s]Loading weights:  62%|██████▏   | 1289/2076 [00:01<00:00, 841.67it/s]Loading weights:  76%|███████▋  | 1585/2076 [00:01<00:00, 973.14it/s]Loading weights: 100%|██████████| 2076/2076 [00:01<00:00, 1308.36it/s]

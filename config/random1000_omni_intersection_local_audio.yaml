@@ -1,8 +1,8 @@
 experiment:
   name: random1000_omni_intersection_presence_eval
   seed: 0
-  batch_size: 16
-  llm_micro_batch_size: 16
+  batch_size: 128
+  llm_micro_batch_size: 128
   max_new_tokens: 1
   temperature: 0.0
   answer_language: english
@@ -29,12 +29,12 @@ models:
     backend: gemma4
     model_id: google/gemma-4-E4B-it
     max_new_tokens: 16
-    llm_micro_batch_size: 1
+    llm_micro_batch_size: 128
   qwen2_audio_7b_instruct:
     backend: qwen2_audio
     model_id: Qwen/Qwen2-Audio-7B-Instruct
     max_new_tokens: 16
-    llm_micro_batch_size: 1
+    llm_micro_batch_size: 128
 scoring:
   clap:
     text_template: The sound of {caption}.

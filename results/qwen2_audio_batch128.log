@@ -1,0 +1,36 @@
+Run: task=llm model=qwen2_audio_7b_instruct rows=476 limit=None results=/workspace/audio_presence_eval/results/stemfoley
+LLM output: /workspace/audio_presence_eval/results/stemfoley/llm_qwen2_audio_7b_instruct.tsv (476 rows)
+LLM qwen2_audio_7b_instruct: micro_batch=128; saved_ok=0; pending=476
+Loading weights:   0%|          | 0/876 [00:00<?, ?it/s]Loading weights:  37%|███▋      | 326/876 [00:00<00:00, 3244.62it/s]Loading weights:  74%|███████▍  | 651/876 [00:00<00:00, 650.23it/s] Loading weights:  92%|█████████▏| 810/876 [00:01<00:00, 497.51it/s]Loading weights: 100%|██████████| 876/876 [00:01<00:00, 547.29it/s]
+CUDA OOM; reducing LLM micro-batch to 64 and retrying
+qwen2_audio_7b_instruct: 64/476
+qwen2_audio_7b_instruct: 128/476
+qwen2_audio_7b_instruct: 192/476
+qwen2_audio_7b_instruct: 256/476
+qwen2_audio_7b_instruct: 320/476
+qwen2_audio_7b_instruct: 384/476
+qwen2_audio_7b_instruct: 448/476
+qwen2_audio_7b_instruct: 476/476
+Completed: task=llm; results: /workspace/audio_presence_eval/results/stemfoley; report: /workspace/audio_presence_eval/results/stemfoley/local_audio_report.md
+Run: task=llm model=qwen2_audio_7b_instruct rows=1000 limit=None results=/workspace/audio_presence_eval/results/random1000_omni_intersection
+LLM output: /workspace/audio_presence_eval/results/random1000_omni_intersection/llm_qwen2_audio_7b_instruct.tsv (1000 rows)
+LLM qwen2_audio_7b_instruct: micro_batch=128; saved_ok=0; pending=1000
+Loading weights:   0%|          | 0/876 [00:00<?, ?it/s]Loading weights:  38%|███▊      | 329/876 [00:00<00:00, 3288.82it/s]Loading weights:  75%|███████▌  | 658/876 [00:00<00:00, 702.11it/s] Loading weights:  94%|█████████▎| 821/876 [00:01<00:00, 525.24it/s]Loading weights: 100%|██████████| 876/876 [00:01<00:00, 586.40it/s]
+CUDA OOM; reducing LLM micro-batch to 64 and retrying
+qwen2_audio_7b_instruct: 64/1000
+qwen2_audio_7b_instruct: 128/1000
+qwen2_audio_7b_instruct: 192/1000
+qwen2_audio_7b_instruct: 256/1000
+qwen2_audio_7b_instruct: 320/1000
+qwen2_audio_7b_instruct: 384/1000
+qwen2_audio_7b_instruct: 448/1000
+qwen2_audio_7b_instruct: 512/1000
+qwen2_audio_7b_instruct: 576/1000
+qwen2_audio_7b_instruct: 640/1000
+qwen2_audio_7b_instruct: 704/1000
+qwen2_audio_7b_instruct: 768/1000
+qwen2_audio_7b_instruct: 832/1000
+qwen2_audio_7b_instruct: 896/1000
+qwen2_audio_7b_instruct: 960/1000
+qwen2_audio_7b_instruct: 1000/1000
+Completed: task=llm; results: /workspace/audio_presence_eval/results/random1000_omni_intersection; report: /workspace/audio_presence_eval/results/random1000_omni_intersection/local_audio_report.md
