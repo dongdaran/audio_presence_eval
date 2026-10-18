@@ -1,0 +1,316 @@
+Run: model=qwen2_5_omni_7b dataset=stemfoley phase=smoke settings=['baseline', 'tad05', 'tad10']
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] Model config: tts_text_start_token_id must be `None` or an integer within the vocabulary (between 0 and 8447), got 151860. This may result in unexpected behavior.
+[transformers] Model config: tts_text_end_token_id must be `None` or an integer within the vocabulary (between 0 and 8447), got 151861. This may result in unexpected behavior.
+[transformers] Model config: tts_text_pad_token_id must be `None` or an integer within the vocabulary (between 0 and 8447), got 151859. This may result in unexpected behavior.
+[transformers] Model config: vision_start_token_id must be `None` or an integer within the vocabulary (between 0 and 8447), got 151652. This may result in unexpected behavior.
+[transformers] Model config: vision_end_token_id must be `None` or an integer within the vocabulary (between 0 and 8447), got 151653. This may result in unexpected behavior.
+[transformers] Model config: audio_start_token_id must be `None` or an integer within the vocabulary (between 0 and 8447), got 151647. This may result in unexpected behavior.
+[transformers] Model config: audio_end_token_id must be `None` or an integer within the vocabulary (between 0 and 8447), got 151648. This may result in unexpected behavior.
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Fetching 5 files:  20%|██        | 1/5 [02:57<11:48, 177.08s/it]Fetching 5 files:  40%|████      | 2/5 [03:30<04:38, 92.82s/it] Fetching 5 files:  60%|██████    | 3/5 [05:06<03:07, 93.97s/it]Fetching 5 files:  80%|████████  | 4/5 [05:07<00:57, 57.48s/it]Fetching 5 files: 100%|██████████| 5/5 [05:08<00:00, 36.89s/it]Fetching 5 files: 100%|██████████| 5/5 [05:08<00:00, 61.63s/it]
+Loading weights:   0%|          | 0/1346 [00:00<?, ?it/s]Loading weights:   8%|▊         | 112/1346 [00:00<00:01, 1094.65it/s]Loading weights:  16%|█▋        | 222/1346 [00:00<00:01, 945.68it/s] Loading weights:  24%|██▎       | 318/1346 [00:00<00:01, 911.56it/s]Loading weights:  30%|███       | 410/1346 [00:00<00:01, 890.15it/s]Loading weights:  37%|███▋      | 500/1346 [00:01<00:02, 331.22it/s]Loading weights:  42%|████▏     | 563/1346 [00:01<00:02, 292.24it/s]Loading weights:  45%|████▌     | 612/1346 [00:01<00:02, 265.03it/s]Loading weights:  48%|████▊     | 652/1346 [00:02<00:04, 161.51it/s]Loading weights:  51%|█████     | 681/1346 [00:02<00:04, 139.19it/s]Loading weights:  52%|█████▏    | 704/1346 [00:02<00:04, 143.68it/s]Loading weights:  54%|█████▍    | 725/1346 [00:02<00:04, 149.44it/s]Loading weights:  55%|█████▌    | 746/1346 [00:02<00:03, 158.61it/s]Loading weights:  57%|█████▋    | 769/1346 [00:03<00:03, 166.32it/s]Loading weights:  59%|█████▊    | 790/1346 [00:03<00:03, 151.15it/s]Loading weights:  60%|██████    | 808/1346 [00:03<00:04, 115.39it/s]Loading weights:  61%|██████    | 823/1346 [00:03<00:04, 107.31it/s]Loading weights:  80%|████████  | 1082/1346 [00:03<00:00, 548.59it/s]Loading weights: 100%|█████████▉| 1345/1346 [00:03<00:00, 963.54it/s]Loading weights: 100%|██████████| 1346/1346 [00:03<00:00, 347.87it/s]
+[transformers] [1mQwen2_5OmniThinkerForConditionalGeneration LOAD REPORT[0m from: Qwen/Qwen2.5-Omni-7B
+Key                                                                                                      | Status     |  | 
+---------------------------------------------------------------------------------------------------------+------------+--+-
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.{1, 2, 3}.tdnn1.conv.bias                    | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.resblocks.{0...17}.activations.{0, 1, 2, 3, 4, 5}.act.alpha             | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.resblocks.{0...17}.activations.{0, 1, 2, 3, 4, 5}.act.beta              | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.ff.ff.{0, 3}.weight                             | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.time_embed.time_mlp.{0, 2}.bias                                             | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.attn_norm.linear.bias                           | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.resblocks.{0...17}.convs1.{0, 1, 2}.bias                                | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.resblocks.{0...17}.convs2.{0, 1, 2}.bias                                | UNEXPECTED |  | 
+talker.model.layers.{0...23}.self_attn.o_proj.weight                                                     | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.attn.to_out.0.weight                            | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.resblocks.{0...17}.convs1.{0, 1, 2}.weight                              | UNEXPECTED |  | 
+talker.model.layers.{0...23}.mlp.gate_proj.weight                                                        | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.ups.{0, 1, 2, 3, 4, 5}.0.bias                                           | UNEXPECTED |  | 
+talker.model.layers.{0...23}.self_attn.v_proj.weight                                                     | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.attn.to_k.weight                                | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.resblocks.{0...17}.convs2.{0, 1, 2}.weight                              | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.attn.to_out.0.bias                              | UNEXPECTED |  | 
+talker.model.layers.{0...23}.self_attn.k_proj.weight                                                     | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.attn.to_q.weight                                | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.ff.ff.{0, 3}.bias                               | UNEXPECTED |  | 
+talker.model.layers.{0...23}.mlp.up_proj.weight                                                          | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.attn.to_v.bias                                  | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.fc.bias                                             | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.{1, 2, 3}.se_block.conv2.weight              | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.{1, 2, 3}.tdnn1.conv.weight                  | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.attn.to_q.bias                                  | UNEXPECTED |  | 
+talker.model.layers.{0...23}.self_attn.q_proj.weight                                                     | UNEXPECTED |  | 
+talker.model.layers.{0...23}.self_attn.k_proj.bias                                                       | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.proj_out.bias                                                               | UNEXPECTED |  | 
+talker.model.layers.{0...23}.post_attention_layernorm.weight                                             | UNEXPECTED |  | 
+talker.model.layers.{0...23}.self_attn.q_proj.bias                                                       | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.attn.to_k.bias                                  | UNEXPECTED |  | 
+talker.model.layers.{0...23}.self_attn.v_proj.bias                                                       | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.attn.to_v.weight                                | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.norm_out.linear.weight                                                      | UNEXPECTED |  | 
+talker.model.layers.{0...23}.mlp.down_proj.weight                                                        | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.ups.{0, 1, 2, 3, 4, 5}.0.weight                                         | UNEXPECTED |  | 
+talker.thinker_to_talker_proj.weight                                                                     | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.{1, 2, 3}.tdnn2.conv.weight                  | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.attn_norm.linear.weight                         | UNEXPECTED |  | 
+talker.model.layers.{0...23}.input_layernorm.weight                                                      | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.time_embed.time_mlp.{0, 2}.weight                                           | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.proj.bias                                                       | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.{1, 2, 3}.se_block.conv2.bias                | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.{1, 2, 3}.res2net_block.blocks.0.conv.weight | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.asp.tdnn.conv.weight                                | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.activation_post.act.beta                                                | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.asp.conv.weight                                     | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.norm_out.linear.bias                                                        | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.proj.weight                                                     | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.{1, 2, 3}.se_block.conv1.weight              | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.mfa.conv.weight                                     | UNEXPECTED |  | 
+talker.codec_head.weight                                                                                 | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.fc.weight                                           | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.{1, 2, 3}.se_block.conv1.bias                | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.{1, 2, 3}.tdnn2.conv.bias                    | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.asp.tdnn.conv.bias                                  | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.0.conv.bias                                  | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.{1, 2, 3}.res2net_block.blocks.0.conv.bias   | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.conv_pre.weight                                                         | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.rotary_embed.inv_freq                                                       | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.conv_pre.bias                                                           | UNEXPECTED |  | 
+talker.thinker_to_talker_proj.bias                                                                       | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.activation_post.act.alpha                                               | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.asp.conv.bias                                       | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.text_embed.codec_embed.weight                                               | UNEXPECTED |  | 
+talker.model.norm.weight                                                                                 | UNEXPECTED |  | 
+talker.model.embed_tokens.weight                                                                         | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.0.conv.weight                                | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.proj_out.weight                                                             | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.mfa.conv.bias                                       | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.conv_post.weight                                                        | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+qwen2_5_omni_7b: 2/2 pending
+qwen2_5_omni_7b: 1/2 processed
+qwen2_5_omni_7b: 2/2 processed
+Run: model=qwen2_5_omni_7b dataset=random1000_omni_intersection phase=smoke settings=['baseline', 'tad05', 'tad10']
+qwen2_5_omni_7b: 2/2 pending
+qwen2_5_omni_7b: 1/2 processed
+qwen2_5_omni_7b: 2/2 processed
+Run: model=qwen2_5_omni_7b dataset=stemfoley phase=full settings=['baseline', 'tad05', 'tad10']
+qwen2_5_omni_7b: 476/476 pending
+qwen2_5_omni_7b: 1/476 processed
+qwen2_5_omni_7b: 2/476 processed
+qwen2_5_omni_7b: 3/476 processed
+qwen2_5_omni_7b: 4/476 processed
+qwen2_5_omni_7b: 5/476 processed
+qwen2_5_omni_7b: 6/476 processed
+qwen2_5_omni_7b: 7/476 processed
+qwen2_5_omni_7b: 8/476 processed
+qwen2_5_omni_7b: 9/476 processed
+qwen2_5_omni_7b: 10/476 processed
+qwen2_5_omni_7b: 11/476 processed
+qwen2_5_omni_7b: 12/476 processed
+qwen2_5_omni_7b: 13/476 processed
+qwen2_5_omni_7b: 14/476 processed
+qwen2_5_omni_7b: 15/476 processed
+qwen2_5_omni_7b: 16/476 processed
+qwen2_5_omni_7b: 17/476 processed
+qwen2_5_omni_7b: 18/476 processed
+qwen2_5_omni_7b: 19/476 processed
+qwen2_5_omni_7b: 20/476 processed
+qwen2_5_omni_7b: 21/476 processed
+qwen2_5_omni_7b: 22/476 processed
+qwen2_5_omni_7b: 23/476 processed
+qwen2_5_omni_7b: 24/476 processed
+qwen2_5_omni_7b: 25/476 processed
+qwen2_5_omni_7b: 26/476 processed
+qwen2_5_omni_7b: 27/476 processed
+qwen2_5_omni_7b: 28/476 processed
+qwen2_5_omni_7b: 29/476 processed
+qwen2_5_omni_7b: 30/476 processed
+qwen2_5_omni_7b: 31/476 processed
+qwen2_5_omni_7b: 32/476 processed
+qwen2_5_omni_7b: 33/476 processed
+qwen2_5_omni_7b: 34/476 processed
+qwen2_5_omni_7b: 35/476 processed
+qwen2_5_omni_7b: 36/476 processed
+qwen2_5_omni_7b: 37/476 processed
+qwen2_5_omni_7b: 38/476 processed
+qwen2_5_omni_7b: 39/476 processed
+qwen2_5_omni_7b: 40/476 processed
+qwen2_5_omni_7b: 41/476 processed
+Traceback (most recent call last):
+  File "/workspace/audio_presence_eval/scripts/run_qwen_shared.py", line 179, in <module>
+    engine = QwenTAD(spec, config, model_args)
+
+  File "/workspace/audio_presence_eval/scripts/run_qwen_shared.py", line 172, in main
+    print(f'Run: model={model} dataset={dataset} phase={"smoke" if smoke else "full"} '
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/audio_presence_eval/scripts/run_qwen_shared.py", line 103, in evaluate
+    try:
+         
+  File "/workspace/audio_presence_eval/scripts/run_qwen_tad.py", line 232, in predict_variants
+    responses[name] = self.generate_prepared(
+                      ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/audio_presence_eval/scripts/run_qwen_tad.py", line 213, in generate_prepared
+    output = self.model.generate(
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/audio_presence_eval/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/audio_presence_eval/.venv/lib/python3.12/site-packages/transformers/generation/utils.py", line 2989, in generate
+    result = decoding_method(
+             ^^^^^^^^^^^^^^^^
+  File "/workspace/audio_presence_eval/.venv/lib/python3.12/site-packages/transformers/generation/utils.py", line 3270, in _sample
+    this_peer_finished = stop_check(unfinished_sequences, next_tokens, input_ids.shape[1])
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/audio_presence_eval/.venv/lib/python3.12/site-packages/transformers/generation/utils.py", line 396, in __call__
+    return bool(unfinished_sequences.max() == 0)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+
+Restart: batch size 16, automatic CUDA OOM backoff enabled
+Run: model=qwen2_5_omni_7b dataset=stemfoley phase=smoke settings=['baseline', 'tad05', 'tad10']
+Run: model=qwen2_5_omni_7b dataset=random1000_omni_intersection phase=smoke settings=['baseline', 'tad05', 'tad10']
+Run: model=qwen2_5_omni_7b dataset=stemfoley phase=full settings=['baseline', 'tad05', 'tad10']
+[transformers] Model config: tts_text_start_token_id must be `None` or an integer within the vocabulary (between 0 and 8447), got 151860. This may result in unexpected behavior.
+[transformers] Model config: tts_text_end_token_id must be `None` or an integer within the vocabulary (between 0 and 8447), got 151861. This may result in unexpected behavior.
+[transformers] Model config: tts_text_pad_token_id must be `None` or an integer within the vocabulary (between 0 and 8447), got 151859. This may result in unexpected behavior.
+[transformers] Model config: vision_start_token_id must be `None` or an integer within the vocabulary (between 0 and 8447), got 151652. This may result in unexpected behavior.
+[transformers] Model config: vision_end_token_id must be `None` or an integer within the vocabulary (between 0 and 8447), got 151653. This may result in unexpected behavior.
+[transformers] Model config: audio_start_token_id must be `None` or an integer within the vocabulary (between 0 and 8447), got 151647. This may result in unexpected behavior.
+[transformers] Model config: audio_end_token_id must be `None` or an integer within the vocabulary (between 0 and 8447), got 151648. This may result in unexpected behavior.
+Loading weights:   0%|          | 0/1346 [00:00<?, ?it/s]Loading weights:  23%|██▎       | 306/1346 [00:00<00:00, 3055.94it/s]Loading weights:  45%|████▌     | 612/1346 [00:01<00:01, 532.22it/s] Loading weights:  56%|█████▋    | 758/1346 [00:01<00:01, 345.15it/s]Loading weights:  63%|██████▎   | 846/1346 [00:02<00:01, 328.22it/s]Loading weights:  84%|████████▎ | 1126/1346 [00:02<00:00, 563.36it/s]Loading weights: 100%|██████████| 1346/1346 [00:02<00:00, 581.80it/s]
+[transformers] [1mQwen2_5OmniThinkerForConditionalGeneration LOAD REPORT[0m from: Qwen/Qwen2.5-Omni-7B
+Key                                                                                                      | Status     |  | 
+---------------------------------------------------------------------------------------------------------+------------+--+-
+token2wav.code2wav_bigvgan_model.resblocks.{0...17}.convs2.{0, 1, 2}.weight                              | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.attn_norm.linear.weight                         | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.resblocks.{0...17}.convs1.{0, 1, 2}.weight                              | UNEXPECTED |  | 
+talker.model.layers.{0...23}.post_attention_layernorm.weight                                             | UNEXPECTED |  | 
+talker.model.layers.{0...23}.self_attn.k_proj.bias                                                       | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.resblocks.{0...17}.activations.{0, 1, 2, 3, 4, 5}.act.beta              | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.attn_norm.linear.bias                           | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.resblocks.{0...17}.convs1.{0, 1, 2}.bias                                | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.ff.ff.{0, 3}.weight                             | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.resblocks.{0...17}.convs2.{0, 1, 2}.bias                                | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.attn.to_q.bias                                  | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.resblocks.{0...17}.activations.{0, 1, 2, 3, 4, 5}.act.alpha             | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.ups.{0, 1, 2, 3, 4, 5}.0.bias                                           | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.attn.to_v.bias                                  | UNEXPECTED |  | 
+talker.model.layers.{0...23}.mlp.up_proj.weight                                                          | UNEXPECTED |  | 
+talker.model.layers.{0...23}.self_attn.k_proj.weight                                                     | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.attn.to_q.weight                                | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.attn.to_k.weight                                | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.attn.to_k.bias                                  | UNEXPECTED |  | 
+talker.model.layers.{0...23}.input_layernorm.weight                                                      | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.{1, 2, 3}.se_block.conv1.weight              | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.ff.ff.{0, 3}.bias                               | UNEXPECTED |  | 
+talker.model.layers.{0...23}.mlp.gate_proj.weight                                                        | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.fc.weight                                           | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.attn.to_out.0.weight                            | UNEXPECTED |  | 
+talker.model.layers.{0...23}.self_attn.q_proj.weight                                                     | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.ups.{0, 1, 2, 3, 4, 5}.0.weight                                         | UNEXPECTED |  | 
+talker.model.layers.{0...23}.self_attn.v_proj.bias                                                       | UNEXPECTED |  | 
+talker.codec_head.weight                                                                                 | UNEXPECTED |  | 
+talker.model.layers.{0...23}.mlp.down_proj.weight                                                        | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.{1, 2, 3}.tdnn2.conv.bias                    | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.attn.to_out.0.bias                              | UNEXPECTED |  | 
+talker.thinker_to_talker_proj.weight                                                                     | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.mfa.conv.weight                                     | UNEXPECTED |  | 
+talker.model.layers.{0...23}.self_attn.q_proj.bias                                                       | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.transformer_blocks.{0...21}.attn.to_v.weight                                | UNEXPECTED |  | 
+talker.model.layers.{0...23}.self_attn.v_proj.weight                                                     | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.{1, 2, 3}.tdnn2.conv.weight                  | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.{1, 2, 3}.se_block.conv2.bias                | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.{1, 2, 3}.se_block.conv2.weight              | UNEXPECTED |  | 
+talker.model.norm.weight                                                                                 | UNEXPECTED |  | 
+talker.model.layers.{0...23}.self_attn.o_proj.weight                                                     | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.mfa.conv.bias                                       | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.{1, 2, 3}.tdnn1.conv.weight                  | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.conv_pre.weight                                                         | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.activation_post.act.beta                                                | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.proj_out.weight                                                             | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.proj_out.bias                                                               | UNEXPECTED |  | 
+talker.model.embed_tokens.weight                                                                         | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.fc.bias                                             | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.time_embed.time_mlp.{0, 2}.bias                                             | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.activation_post.act.alpha                                               | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.{1, 2, 3}.res2net_block.blocks.0.conv.weight | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.time_embed.time_mlp.{0, 2}.weight                                           | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.asp.conv.bias                                       | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.rotary_embed.inv_freq                                                       | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.{1, 2, 3}.res2net_block.blocks.0.conv.bias   | UNEXPECTED |  | 
+talker.thinker_to_talker_proj.bias                                                                       | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.{1, 2, 3}.se_block.conv1.bias                | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.conv_pre.bias                                                           | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.{1, 2, 3}.tdnn1.conv.bias                    | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.asp.tdnn.conv.bias                                  | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.norm_out.linear.weight                                                      | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.0.conv.bias                                  | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.blocks.0.conv.weight                                | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.text_embed.codec_embed.weight                                               | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.proj.bias                                                       | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.asp.tdnn.conv.weight                                | UNEXPECTED |  | 
+token2wav.code2wav_bigvgan_model.conv_post.weight                                                        | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.proj.weight                                                     | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.input_embed.spk_encoder.asp.conv.weight                                     | UNEXPECTED |  | 
+token2wav.code2wav_dit_model.norm_out.linear.bias                                                        | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+qwen2_5_omni_7b: 444/476 pending
+qwen2_5_omni_7b: 16/444 processed (batch size 16)
+qwen2_5_omni_7b: 32/444 processed (batch size 16)
+qwen2_5_omni_7b: 48/444 processed (batch size 16)
+qwen2_5_omni_7b: 64/444 processed (batch size 16)
+qwen2_5_omni_7b: 80/444 processed (batch size 16)
+qwen2_5_omni_7b: 96/444 processed (batch size 16)
+qwen2_5_omni_7b: 112/444 processed (batch size 16)
+qwen2_5_omni_7b: 128/444 processed (batch size 16)
+qwen2_5_omni_7b: 144/444 processed (batch size 16)
+qwen2_5_omni_7b: 160/444 processed (batch size 16)
+qwen2_5_omni_7b: 176/444 processed (batch size 16)
+qwen2_5_omni_7b: 192/444 processed (batch size 16)
+CUDA OOM: reducing batch size to 8; retrying at 192
+qwen2_5_omni_7b: 200/444 processed (batch size 8)
+qwen2_5_omni_7b: 208/444 processed (batch size 8)
+qwen2_5_omni_7b: 216/444 processed (batch size 8)
+qwen2_5_omni_7b: 224/444 processed (batch size 8)
+qwen2_5_omni_7b: 232/444 processed (batch size 8)
+qwen2_5_omni_7b: 240/444 processed (batch size 8)
+qwen2_5_omni_7b: 248/444 processed (batch size 8)
+qwen2_5_omni_7b: 256/444 processed (batch size 8)
+qwen2_5_omni_7b: 264/444 processed (batch size 8)
+qwen2_5_omni_7b: 272/444 processed (batch size 8)
+qwen2_5_omni_7b: 280/444 processed (batch size 8)
+qwen2_5_omni_7b: 288/444 processed (batch size 8)
+qwen2_5_omni_7b: 296/444 processed (batch size 8)
+qwen2_5_omni_7b: 304/444 processed (batch size 8)
+qwen2_5_omni_7b: 312/444 processed (batch size 8)
+qwen2_5_omni_7b: 320/444 processed (batch size 8)
+qwen2_5_omni_7b: 328/444 processed (batch size 8)
+qwen2_5_omni_7b: 336/444 processed (batch size 8)
+qwen2_5_omni_7b: 344/444 processed (batch size 8)
+qwen2_5_omni_7b: 352/444 processed (batch size 8)
+qwen2_5_omni_7b: 360/444 processed (batch size 8)
+qwen2_5_omni_7b: 368/444 processed (batch size 8)
+qwen2_5_omni_7b: 376/444 processed (batch size 8)
+qwen2_5_omni_7b: 384/444 processed (batch size 8)
+qwen2_5_omni_7b: 392/444 processed (batch size 8)
+qwen2_5_omni_7b: 400/444 processed (batch size 8)
+qwen2_5_omni_7b: 408/444 processed (batch size 8)
+qwen2_5_omni_7b: 416/444 processed (batch size 8)
+qwen2_5_omni_7b: 424/444 processed (batch size 8)
+qwen2_5_omni_7b: 432/444 processed (batch size 8)
+qwen2_5_omni_7b: 440/444 processed (batch size 8)
+qwen2_5_omni_7b: 444/444 processed (batch size 8)
+Run: model=qwen2_5_omni_7b dataset=random1000_omni_intersection phase=full settings=['baseline', 'tad05', 'tad10']
+qwen2_5_omni_7b: 1000/1000 pending
+qwen2_5_omni_7b: 8/1000 processed (batch size 8)
+qwen2_5_omni_7b: 16/1000 processed (batch size 8)
+qwen2_5_omni_7b: 24/1000 processed (batch size 8)
+qwen2_5_omni_7b: 32/1000 processed (batch size 8)
+qwen2_5_omni_7b: 40/1000 processed (batch size 8)
+qwen2_5_omni_7b: 48/1000 processed (batch size 8)
+qwen2_5_omni_7b: 56/1000 processed (batch size 8)
+qwen2_5_omni_7b: 64/1000 processed (batch size 8)
+qwen2_5_omni_7b: 72/1000 processed (batch size 8)

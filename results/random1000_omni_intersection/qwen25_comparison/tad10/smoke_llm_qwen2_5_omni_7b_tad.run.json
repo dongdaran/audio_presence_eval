@@ -1,0 +1,14 @@
+{
+  "model_id": "Qwen/Qwen2.5-Omni-7B",
+  "method": "tad",
+  "alpha": 1.0,
+  "tau": 0.2,
+  "gamma": 2.5,
+  "max_new_tokens": 16,
+  "prompt": "Does this audio contain the sound of {caption}? Respond using only one word: yes or no.",
+  "sample_ids": [
+    "ee4bc7c4d8430a10d1bdca798cff1b277c14a8f6",
+    "ec66cf57318c64919414d3ff2ce319c0e31841c3"
+  ],
+  "system_prompt": "You are Qwen, a virtual human developed by the Qwen Team, Alibaba Group, capable of perceiving auditory and visual inputs, as well as generating text and speech."
+}

@@ -1,0 +1,75 @@
+Run: model=qwen2_audio_7b_instruct dataset=stemfoley phase=smoke settings=['tad05', 'tad10']
+Loading weights:   0%|          | 0/876 [00:00<?, ?it/s]Loading weights:  32%|███▏      | 281/876 [00:00<00:00, 2777.14it/s]Loading weights:  64%|██████▍   | 559/876 [00:00<00:00, 661.75it/s] Loading weights:  80%|███████▉  | 699/876 [00:01<00:00, 427.07it/s]Loading weights:  90%|████████▉ | 786/876 [00:01<00:00, 375.68it/s]Loading weights:  97%|█████████▋| 849/876 [00:01<00:00, 341.82it/s]Loading weights: 100%|██████████| 876/876 [00:02<00:00, 428.16it/s]
+qwen2_audio_7b_instruct: 2/2 pending
+qwen2_audio_7b_instruct: 2/2 processed (batch size 16)
+Run: model=qwen2_audio_7b_instruct dataset=stemfoley phase=full settings=['tad05', 'tad10']
+qwen2_audio_7b_instruct: 476/476 pending
+CUDA OOM: reducing batch size to 8; retrying at 0
+qwen2_audio_7b_instruct: 8/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 16/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 24/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 32/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 40/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 48/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 56/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 64/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 72/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 80/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 88/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 96/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 104/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 112/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 120/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 128/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 136/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 144/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 152/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 160/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 168/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 176/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 184/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 192/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 200/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 208/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 216/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 224/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 232/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 240/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 248/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 256/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 264/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 272/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 280/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 288/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 296/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 304/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 312/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 320/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 328/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 336/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 344/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 352/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 360/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 368/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 376/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 384/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 392/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 400/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 408/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 416/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 424/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 432/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 440/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 448/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 456/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 464/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 472/476 processed (batch size 8)
+qwen2_audio_7b_instruct: 476/476 processed (batch size 8)
+Traceback (most recent call last):
+  File "/workspace/audio_presence_eval/scripts/run_qwen_shared.py", line 194, in <module>
+    main()
+  File "/workspace/audio_presence_eval/scripts/run_qwen_shared.py", line 187, in main
+    evaluate(engine, samples, states, config, model, args)
+  File "/workspace/audio_presence_eval/scripts/run_qwen_shared.py", line 141, in evaluate
+    raise RuntimeError('Invalid predictions saved; inspect outputs before continuing')
+RuntimeError: Invalid predictions saved; inspect outputs before continuing

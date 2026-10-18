@@ -1,0 +1,13 @@
+{
+  "saved": 64,
+  "valid": 64,
+  "invalid_failed": 0,
+  "accuracy": 0.796875,
+  "yes_recall": 0.796875,
+  "yes_precision": 1.0,
+  "yes_f1": 0.8869565217391304,
+  "no_recall": null,
+  "no_precision": 0.0,
+  "no_f1": 0.0,
+  "balanced_accuracy": null
+}

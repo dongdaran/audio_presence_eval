@@ -60,6 +60,8 @@ def prepare_run(config, dataset, model, spec, args, smoke):
     states = {}
     for name, (method, alpha) in variants(model).items():
         output = output_path(dataset, model, name, method, smoke)
+        if getattr(args, 'output_tag', ''):
+            output = output.parent / args.output_tag / output.name
         metadata = dict(model_id=spec['model_id'], method=method, alpha=alpha,
                         tau=args.tau, gamma=args.gamma, max_new_tokens=args.max_new_tokens,
                         prompt=config['prompt']['template'], sample_ids=ids)
@@ -95,7 +97,8 @@ def evaluate(engine, samples, states, config, model, args):
     pending = [s for s in samples if any(st['rows'].get(s['sample_id'], {}).get('status') != 'ok'
                                        for st in states.values())]
     print(f'{model}: {len(pending)}/{len(samples)} pending', flush=True)
-    for start in range(0, len(pending), args.batch_size):
+    start = 0
+    while start < len(pending):
         batch = pending[start:start+args.batch_size]
         active = {name: variants(model)[name] for name, st in states.items()
                   if any(st['rows'].get(s['sample_id'], {}).get('status') != 'ok' for s in batch)}
@@ -103,9 +106,17 @@ def evaluate(engine, samples, states, config, model, args):
             responses = engine.predict_variants(batch, [audio_path(s, config) for s in batch], active)
             if any(len(responses[name]) != len(batch) for name in active):
                 raise RuntimeError('Unexpected prediction batch size')
-        except Exception:
+        except Exception as error:
+            import torch
             save()
-            raise
+            if not isinstance(error, torch.cuda.OutOfMemoryError) or args.batch_size <= 1:
+                raise
+            args.batch_size = max(1, args.batch_size // 2)
+            print(f'CUDA OOM: reducing batch size to {args.batch_size}; retrying at {start}', flush=True)
+            error.__traceback__ = None
+            gc.collect()
+            torch.cuda.empty_cache()
+            continue
         for name, (method, alpha) in active.items():
             for sample, raw in zip(batch, responses[name]):
                 if states[name]['rows'].get(sample['sample_id'], {}).get('status') == 'ok':
@@ -123,7 +134,8 @@ def evaluate(engine, samples, states, config, model, args):
                 }
         if (start+len(batch)) // 32 != start // 32:
             save()
-        print(f'{model}: {min(start+len(batch), len(pending))}/{len(pending)} processed', flush=True)
+        start += len(batch)
+        print(f'{model}: {start}/{len(pending)} processed (batch size {args.batch_size})', flush=True)
     save()
     if any(metrics(list(st['rows'].values()))['invalid_failed'] for st in states.values()):
         raise RuntimeError('Invalid predictions saved; inspect outputs before continuing')
@@ -132,6 +144,9 @@ def evaluate(engine, samples, states, config, model, args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('mode', choices=['all', 'smoke', 'full', 'list'], nargs='?', default='all')
+    parser.add_argument('--datasets', nargs='+', choices=DATASETS, default=DATASETS)
+    parser.add_argument('--output-tag', default='')
+    parser.add_argument('--models', nargs='+', choices=MODELS, default=MODELS)
     parser.add_argument('--batch-size', type=int, default=1)
     parser.add_argument('--max-new-tokens', type=int, default=16)
     parser.add_argument('--tau', type=float, default=.2)
@@ -141,8 +156,8 @@ def main():
             or not all(math.isfinite(v) for v in (args.tau, args.gamma))):
         parser.error('Invalid batch size, token limit or gate parameters')
     if args.mode == 'list':
-        for dataset in DATASETS:
-            for model in MODELS:
+        for dataset in args.datasets:
+            for model in args.models:
                 for name, (method, alpha) in variants(model).items():
                     print(f'{dataset}\t{model}\t{method}\talpha={alpha}\ttau={args.tau}'
                           f'\tgamma={args.gamma}\t{output_path(dataset, model, name, method, False).parent.relative_to(ROOT)}')
@@ -150,13 +165,13 @@ def main():
     import torch
     if not torch.cuda.is_available():
         parser.error('CUDA GPU required; no evaluation started')
-    configs = {d: read_config(ROOT / 'config' / f'{d}_local_audio.yaml') for d in DATASETS}
+    configs = {d: read_config(ROOT / 'config' / f'{d}_local_audio.yaml') for d in args.datasets}
     phases = [True, False] if args.mode == 'all' else [args.mode == 'smoke']
-    for model in MODELS:
+    for model in args.models:
         spec = (dict(backend='qwen2_5_omni', model_id='Qwen/Qwen2.5-Omni-7B') if model == MODELS[0]
-                else dict(configs[DATASETS[0]]['models'][model]))
+                else dict(configs[args.datasets[0]]['models'][model]))
         runs = [(d, smoke, configs[d], *prepare_run(configs[d], d, model, spec, args, smoke))
-                for smoke in phases for d in DATASETS]
+                for smoke in phases for d in args.datasets]
         engine = None
         for dataset, smoke, config, samples, states in runs:
             print(f'Run: model={model} dataset={dataset} phase={"smoke" if smoke else "full"} '

@@ -1,0 +1,13 @@
+{
+  "saved": 2,
+  "valid": 2,
+  "invalid_failed": 0,
+  "accuracy": 1.0,
+  "yes_recall": 1.0,
+  "yes_precision": 1.0,
+  "yes_f1": 1.0,
+  "no_recall": 1.0,
+  "no_precision": 1.0,
+  "no_f1": 1.0,
+  "balanced_accuracy": 1.0
+}

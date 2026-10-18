@@ -1,0 +1,5 @@
+sample_id	split	clip_id	video_id	clip_start_seconds	clip_end_seconds	duration_seconds	mid	caption	label	model	model_id	raw_response	prediction	status	error
+ee4bc7c4d8430a10d1bdca798cff1b277c14a8f6	evaluation	jlgz0tRGQYM_10000	jlgz0tRGQYM	10.0	20.0	10.0	/m/04zjc	Machine gun	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+ec66cf57318c64919414d3ff2ce319c0e31841c3	evaluation	CSEqIdBIXAY_30000	CSEqIdBIXAY	30.0	40.0	10.0	/m/03wvsk	Hair dryer	no	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	

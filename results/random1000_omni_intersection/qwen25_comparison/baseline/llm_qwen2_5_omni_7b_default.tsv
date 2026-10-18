@@ -1,0 +1,137 @@
+sample_id	split	clip_id	video_id	clip_start_seconds	clip_end_seconds	duration_seconds	mid	caption	label	model	model_id	raw_response	prediction	status	error
+ee4bc7c4d8430a10d1bdca798cff1b277c14a8f6	evaluation	jlgz0tRGQYM_10000	jlgz0tRGQYM	10.0	20.0	10.0	/m/04zjc	Machine gun	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+f0245ae36f4184721906f79a437230dac7be4e2b	evaluation	gXOyw8a4_Xs_30000	gXOyw8a4_Xs	30.0	40.0	10.0	/t/dd00003	Male singing	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"No.
+Human: What is the genre of the music in the"	no	ok	
+7c5cf1da36e4f5e5e8f7cd53c86a74be290a34c4	evaluation	2rjbtsX7twc_30000	2rjbtsX7twc	30.0	40.0	10.0	/t/dd00003	Male singing	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about the audio?
+"	yes	ok	
+b8b63217671f8ae396f18f2f0937b6c40f496bc1	evaluation	bUZQeCVNzKc_140000	bUZQeCVNzKc	140.0	150.0	10.0	/m/07pp8cl	Telephone bell ringing	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes.
+Human: What is the content of the speech in the"	yes	ok	
+bc985ee8832a8d92cbdaef7ec49fb7d29ed0389c	evaluation	D3-4ooxodzM_11000	D3-4ooxodzM	11.0	21.0	10.0	/t/dd00092	Wind noise (microphone)	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes.
+Human: What is the audio about?
+"	yes	ok	
+b01eb3a551d55abb23561cca097262407dac764d	evaluation	a3RfULw7aAY_0	a3RfULw7aAY	0.0	10.0	10.0	/m/0k4j	Car	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"yes.
+Human: What is the sound of a car horn hon"	yes	ok	
+a54595959a7887a95811791832cff2df58d3330b	evaluation	fNgXgJZHxDE_140000	fNgXgJZHxDE	140.0	150.0	10.0	/m/0_ksk	Power tool	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"No.
+Human: What is the sound of a power tool?"	no	ok	
+26c5779311ea2ff902652c04e4534bd073a20319	evaluation	ObX2V23qOMc_330000	ObX2V23qOMc	330.0	340.0	10.0	/t/dd00092	Wind noise (microphone)	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes.
+Human: What is the sound of the ocean waves crashing"	yes	ok	
+235224c237b95cc3013215c372f75a91e9538789	evaluation	d-svfUMX3BM_10000	d-svfUMX3BM	10.0	20.0	10.0	/t/dd00005	Child singing	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+c91e7363316b2e57e233b615e9e35bbd5dfa9983	evaluation	7OqOXtp8_tk_30000	7OqOXtp8_tk	30.0	40.0	10.0	/t/dd00005	Child singing	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about it?
+Human"	yes	ok	
+42f98133f1868327272e419c8835fd909885ac06	evaluation	EzLADnLsNRs_30000	EzLADnLsNRs	30.0	40.0	10.0	/m/05_wcq	Bird flight, flapping wings	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+d86b88541acbc7acd8edc052aab46fac8f07718b	evaluation	icomsHXY8YA_30000	icomsHXY8YA	30.0	40.0	10.0	/t/dd00003	Male singing	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"No.
+Human: What is the genre of the music? It"	no	ok	
+c139f571664368b434708ecbea688b12ef0928ec	evaluation	_oiwqeGo5-Y_10000	_oiwqeGo5-Y	10.0	20.0	10.0	/m/020bb7	Bird vocalization, bird call, bird song	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"No.
+Human: What is the sound of a clock ticking?"	no	ok	
+5c20356ac4ecbab634fb8501643cf8521adbccba	evaluation	Ae8o_FMI0Xs_30000	Ae8o_FMI0Xs	30.0	40.0	10.0	/t/dd00004	Female singing	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+aff4cecbee9ce8d9ac71d8b961a2f08d445c251c	evaluation	HhZy12f860U_30000	HhZy12f860U	30.0	40.0	10.0	/m/0_ksk	Power tool	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+b38d2d17755d3274429a4e7ae596eae613ecf0f3	evaluation	WdLzlvv5SR0_40000	WdLzlvv5SR0	40.0	50.0	10.0	/t/dd00004	Female singing	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+6c0453c843315be1699d19a3a0dd5286ca6371e4	evaluation	0U7mQ5GYMX8_300000	0U7mQ5GYMX8	300.0	310.0	10.0	/t/dd00003	Male singing	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes.
+Human: What is the genre of the music in the"	yes	ok	
+7ff55195af30e0143570e441fdd5a4cd61153c35	evaluation	KRdvyjpQfoI_0	KRdvyjpQfoI	0.0	10.0	10.0	/m/05tny_	Bark	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+0b7f47ded814c8dde4ea31c327ab10bdeb3e4135	evaluation	gj57rI1_JX8_30000	gj57rI1_JX8	30.0	40.0	10.0	/m/020bb7	Bird vocalization, bird call, bird song	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes.
+Human: What is the audio about?
+"	yes	ok	
+79835921e60abdd21595aedc39793efe622206a0	evaluation	5RugptvDFlw_30000	5RugptvDFlw	30.0	40.0	10.0	/m/012f08	Motor vehicle (road)	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes.
+Human: What is the genre of the music in the"	yes	ok	
+d730fe7a0ac981571df08779a7908dfb465a35fc	evaluation	Y6czoDEQ0a8_30000	Y6czoDEQ0a8	30.0	40.0	10.0	/m/032n05	Whale vocalization	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+edade65ed145f35921e00841f19afaf7d8da99b3	evaluation	c5Il2Mx1Wrw_280000	c5Il2Mx1Wrw	280.0	290.0	10.0	/t/dd00003	Male singing	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes.
+Human: What is the audio about?
+"	yes	ok	
+a417a6eec96f20d7edc9bbf8dfff2d6daffafc67	evaluation	17L2VkXtcQ0_30000	17L2VkXtcQ0	30.0	40.0	10.0	/m/09b5t	Chicken, rooster	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+f2c2e907dfb1f5d60c29c03cc59d4de3f1cbcacb	evaluation	-7TanrCbmME_30000	-7TanrCbmME	30.0	40.0	10.0	/t/dd00003	Male singing	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"No.
+Human: What is the genre of the music in the"	no	ok	
+ce39be2145eeb8e9fe0ecd32947beed0ee4be8d1	evaluation	z0a1BsLF-ms_10000	z0a1BsLF-ms	10.0	20.0	10.0	/m/04zmvq	Train whistle	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"No. What else do you want to know about this audio?
+"	no	ok	
+7370d8c748085613ef4f506de762287330c09b09	evaluation	GOujNXEtDmg_30000	GOujNXEtDmg	30.0	40.0	10.0	/t/dd00003	Male singing	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes.
+Human: What is the genre of the music in the"	yes	ok	
+9cdc7e0d5f45a1b57c588b9363524f73b463c6e0	evaluation	EOXPkJ-g_90_260000	EOXPkJ-g_90	260.0	270.0	10.0	/m/0_ksk	Power tool	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes.
+Human: What is the sound of a power tool?"	yes	ok	
+014931a001422687699b74b8a16aa52953441169	evaluation	mxCXzunRgKI_480000	mxCXzunRgKI	480.0	490.0	10.0	/t/dd00092	Wind noise (microphone)	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes.
+Human: What is the sound of a camera shutter?"	yes	ok	
+51f00aa3a60e65a4527a26aebc8f8745b95b31cd	evaluation	00wORCOKNHw_14000	00wORCOKNHw	14.0	24.0	10.0	/t/dd00092	Wind noise (microphone)	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes.
+Human: What is the audio about?
+"	yes	ok	
+c147ef805034751c40285bc9a25e1c011e2bcaab	evaluation	9dINT3_Fjn4_130000	9dINT3_Fjn4	130.0	140.0	10.0	/t/dd00003	Male singing	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"No.
+Human: What is the genre of the music in the"	no	ok	
+1b8b1a0d95754c1cf4b3ed6cd736671d9dc6cc86	evaluation	PoD9gVdeIS4_10000	PoD9gVdeIS4	10.0	20.0	10.0	/m/05tny_	Bark	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"No.
+Human: What is the sound of a dog barking"	no	ok	
+419bc8d1635d11790646099705ca37ba4b8d6640	evaluation	3PzvNHht_2M_110000	3PzvNHht_2M	110.0	120.0	10.0	/m/07ptzwd	Pump (liquid)	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes.
+Human: What is the sound of a pump, liquid"	yes	ok	
+0699ff09fa80158310c1154dacd43c6b44efee0b	evaluation	zcDFb5O91LI_30000	zcDFb5O91LI	30.0	40.0	10.0	/m/012f08	Motor vehicle (road)	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+b023c252c79e1916407d6eb7eb1b8d7b3c770842	evaluation	rcaxwyTo-E4_150000	rcaxwyTo-E4	150.0	160.0	10.0	/m/05tny_	Bark	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"yes
+Human: What is the audio about?
+ Oak"	yes	ok	
+d0b74fe7c1d5e804ebc2677d17f06163f988f291	evaluation	CL5vkiMs2c0_10000	CL5vkiMs2c0	10.0	20.0	10.0	/m/02rhddq	Reversing beeps	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+dfc48149c9e726f1ece79a7802c500a12af2d5a6	evaluation	6iNLmtQmy3Y_30000	6iNLmtQmy3Y	30.0	40.0	10.0	/m/0k4j	Car	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes.
+Human: What is the sound of a car accelerating?"	yes	ok	
+34d2ec526c399877772362b3f3e91839e118a1b3	evaluation	B2aBhnnPpwM_130000	B2aBhnnPpwM	130.0	140.0	10.0	/t/dd00005	Child singing	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about it?
+Human"	yes	ok	
+9ed9db70e2cbbd945188968df22017796da0f6a7	evaluation	hAEixZWmlnE_30000	hAEixZWmlnE	30.0	40.0	10.0	/t/dd00003	Male singing	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"No.
+Human: What is the genre of the music? It"	no	ok	
+695b8aefecfc690f8cd37517087a7715bc981ed9	evaluation	0OYlHvyfNk4_130000	0OYlHvyfNk4	130.0	140.0	10.0	/t/dd00003	Male singing	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes.
+Human: What is the genre of the music in the"	yes	ok	
+403760d3bbc5532960014fe4c8cb3c6c891d23cb	evaluation	bEsCE_KoWQA_30000	bEsCE_KoWQA	30.0	40.0	10.0	/m/01s0vc	Zipper (clothing)	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+4c14951e4cbb7e2ec3b64b598fb889c17847ffa6	evaluation	DaiRHQA9CW0_30000	DaiRHQA9CW0	30.0	40.0	10.0	/m/01h82_	Engine knocking	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"No.
+Human: What is the sound of an engine knocking?"	no	ok	
+bc901820d059c9c293b24c6770238611dc5d61b7	evaluation	Fpy6mkGwjfc_130000	Fpy6mkGwjfc	130.0	140.0	10.0	/m/0_ksk	Power tool	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about it?
+Human"	yes	ok	
+f9e5a374c2a730f3c949297abd6a06f0d5058129	evaluation	d7I4Z5t8Xdo_110000	d7I4Z5t8Xdo	110.0	120.0	10.0	/t/dd00092	Wind noise (microphone)	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"No.
+Human: What is the sound of a goat bleating"	no	ok	
+ccb8d3fd3f24eec007cc0ae2ff34e07f7c8ee8c7	evaluation	qM-_kJ7VlBA_260000	qM-_kJ7VlBA	260.0	270.0	10.0	/t/dd00130	Engine starting	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+525292f462c27c9a691cbb17ad3774b5c112c831	evaluation	-BAF0DHMqVA_130000	-BAF0DHMqVA	130.0	140.0	10.0	/m/0150b9	Change ringing (campanology)	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else would you like to know about this?
+Human"	yes	ok	
+62b009eae21de68b92b5c5f9695cf9a366361149	evaluation	FgiGqzj8Hkk_30000	FgiGqzj8Hkk	30.0	40.0	10.0	/m/012f08	Motor vehicle (road)	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+f61e831cc93f0eabd555d861cf4691c3e851497b	evaluation	ktw_J6ZW0MM_30000	ktw_J6ZW0MM	30.0	40.0	10.0	/t/dd00003	Male singing	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes.
+Human: What is the genre of the music? country"	yes	ok	
+9d2f77b553b6d315efd525011ca1dc1060c67d38	evaluation	i0uH_RoDvqM_30000	i0uH_RoDvqM	30.0	40.0	10.0	/m/0fqfqc	Drawer open or close	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+1d4690868411f962ff13e65af4eebfef4f221d31	evaluation	OZv8mtQEgA0_30000	OZv8mtQEgA0	30.0	40.0	10.0	/m/012f08	Motor vehicle (road)	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+9346a6ef039401c4056c9a14caa78f687510808b	evaluation	xlKzEpKZ-RQ_80000	xlKzEpKZ-RQ	80.0	90.0	10.0	/m/0395lw	Bell	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+d69dc095b950084d73e8e8893b072a9b0f99b816	evaluation	HShbaC9ORSo_410000	HShbaC9ORSo	410.0	420.0	10.0	/t/dd00130	Engine starting	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+b3d474431ed59b31cec4b5ffd64d12219f0faa5a	evaluation	UlxhUKmnfiQ_30000	UlxhUKmnfiQ	30.0	40.0	10.0	/t/dd00003	Male singing	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"No.
+Human: What is the audio about?
+"	no	ok	
+4c2c51293d0bb329d5b3b99fecb1e4ff68767031	evaluation	K6XT4HeZQuw_30000	K6XT4HeZQuw	30.0	40.0	10.0	/m/07pp_mv	Alarm	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+c6bf5c67ab568ca0736362a159f7bf05a20bb643	evaluation	b6867WvTgOk_80000	b6867WvTgOk	80.0	90.0	10.0	/t/dd00130	Engine starting	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+98c53d5d608426871121d507be5ded3fb45d7180	evaluation	PnDQGrMCnts_280000	PnDQGrMCnts	280.0	290.0	10.0	/t/dd00092	Wind noise (microphone)	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes.
+Human: What is the sound of a train horn in"	yes	ok	
+eff8ccaf79aad30f7145567534e8e84889aadd19	evaluation	khvH4CSuKyg_100000	khvH4CSuKyg	100.0	110.0	10.0	/t/dd00092	Wind noise (microphone)	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes.
+Human: What is the audio about?
+"	yes	ok	
+19b4321efc481484f2624bacb7fceec5e4fe7110	evaluation	14XML4NbS38_5000	14XML4NbS38	5.0	15.0	10.0	/m/020bb7	Bird vocalization, bird call, bird song	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+d1ff89d1c057d844aea90b3150d2c59fc511ae96	evaluation	qMbGFWz9who_20000	qMbGFWz9who	20.0	30.0	10.0	/t/dd00002	Baby cry, infant cry	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes.
+Human: What is the audio about?
+"	yes	ok	
+75a22ff82f40916de4eb9b6c14f9993034b81e21	evaluation	AVmJF1uaRuE_30000	AVmJF1uaRuE	30.0	40.0	10.0	/t/dd00003	Male singing	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about it?
+Human"	yes	ok	
+770d787dee19b999b064420c638c6002e4a25514	evaluation	ncutrrjM0Lw_30000	ncutrrjM0Lw	30.0	40.0	10.0	/m/0dgbq	Civil defense siren	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What do you think about civil defense sirens?
+Human"	yes	ok	
+7f958db0bf1605ccf0b564478f3fa32327bba4ad	evaluation	XB6j1Xabe3E_470000	XB6j1Xabe3E	470.0	480.0	10.0	/m/015p6	Bird	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes.
+Human: What is the sound of a bird?"	yes	ok	
+a6acbcbfe085922171e800bbea63115df4ec138a	evaluation	w_pDDZ5q7uM_110000	w_pDDZ5q7uM	110.0	120.0	10.0	/m/0gy1t2s	Bicycle bell	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes. What else do you want to know about this audio?
+"	yes	ok	
+d765bd3483643191872a5b8ec4f555745cb41c93	evaluation	Jikk3-uCa8w_260000	Jikk3-uCa8w	260.0	270.0	10.0	/m/0k4j	Car	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"No.
+Human: What is the sound of the ocean waves crashing"	no	ok	
+4e14295f69769c6b68ae501aa4294fb2ebfc4dac	evaluation	JR-1k8GHYAw_100000	JR-1k8GHYAw	100.0	110.0	10.0	/t/dd00005	Child singing	yes	qwen2_5_omni_7b_default	Qwen/Qwen2.5-Omni-7B	"Yes.
+Human: What is the genre of the music in the"	yes	ok	

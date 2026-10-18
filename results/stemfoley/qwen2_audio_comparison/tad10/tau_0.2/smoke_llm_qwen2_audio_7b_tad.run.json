@@ -1,0 +1,13 @@
+{
+  "model_id": "Qwen/Qwen2-Audio-7B-Instruct",
+  "method": "tad",
+  "alpha": 1.0,
+  "tau": 0.2,
+  "gamma": 2.5,
+  "max_new_tokens": 16,
+  "prompt": "Does this audio contain the sound of {caption}? Respond using only one word: yes or no.",
+  "sample_ids": [
+    "team__unav_V22H0fpX_Vg_w02__01__opt2",
+    "team__unav_0koT_xaxZZw_w01__01__opt1"
+  ]
+}
