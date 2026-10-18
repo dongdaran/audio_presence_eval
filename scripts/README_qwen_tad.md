@@ -75,9 +75,10 @@ tail -f results/qwen25_comparison/run.log
 
 Check per-setting `*.metrics.json` for `yes_recall`, `no_recall`,
 `balanced_accuracy` and `invalid_failed`. Compare methods within the same dataset.
-The `full` mode skips smoke checks; the default `all` mode runs both phases.
+The `full` mode skips smoke checks; the default `all` mode runs both phases
+for the current model, then unloads it before loading the next model.
 
-The launcher runs smoke checks, then full evaluations, sequentially on one GPU:
+The launcher delegates to `scripts/run_qwen_shared.py`, sequentially on one GPU:
 StemFoley (476) and random1000_omni_intersection (1000), each with:
 
 | Model | Settings | Runs across both datasets |
@@ -90,14 +91,37 @@ Ten full evaluations, 7,380 predictions. TAD uses tau=0.2 and gamma=2.5.
 Smoke validation adds two examples per combination (20 predictions).
 AAD is excluded from this launcher. The standalone runner retains `--method aad`
 for a later experiment. Qwen2-Audio baseline is not rerun.
-Outputs/logs are isolated under `results/<dataset>/qwen25_comparison/<setting>/`
+Outputs are isolated under `results/<dataset>/qwen25_comparison/<setting>/`
 for Omni and `results/<dataset>/qwen2_audio_comparison/<setting>/` for Qwen2-Audio.
 Invalid/error predictions stop the launcher after their results are saved.
 Restarting the same command resumes successful rows. Running on a CUDA machine
 is required; the CPU preflight stops before evaluation or weight downloads.
 
+### Shared inference
+
+- Each model loads once across both datasets, settings, and smoke/full phases.
+- Each batch loads/resamples waveforms once and prepares real/silent features once
+  for all active settings. Model-specific features are not shared between models.
+- Real-audio prefill logits and KV state are computed once per batch and reused
+  across settings. Each generation gets an independent copy of the real KV state
+  to avoid mutations leaking between settings. Omni position offsets are restored.
+- Silent-branch logits are memoized by the entire batch's exact generated prefix.
+  Diverging histories are computed separately; no logits are reused across batches.
+- Generation remains greedy, full vocabulary, max 16 tokens. This is not a
+  first-token-only evaluation. The silent branch remains uncached in KV terms.
+- Shared prefill retains a pristine snapshot plus a live generation cache, so
+  VRAM can increase. It does not retain model weights for both models at once.
+- Resume metadata and output locations remain compatible with independent runs.
+  Success rows are preserved; only pending variants are computed. Results are
+  checkpointed every 32 examples and at completion or an ordinary exception.
+  A hard kill may require replaying the last incomplete checkpoint.
+- Use the combined console/nohup log for progress; per-setting metrics/TSVs stay
+  separate. `--batch-size N` can be passed to the shell launcher.
+
+Actual GPU throughput and peak VRAM must be measured on the evaluation machine.
+
 Tests (require PyTorch, but no GPU or model download):
 
 ```bash
-python -m unittest discover -s tests -p test_qwen_tad.py
+.venv/bin/python -m unittest discover -s tests -p 'test_qwen*.py'
 ```

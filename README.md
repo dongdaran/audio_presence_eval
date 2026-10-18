@@ -23,6 +23,9 @@ random1000_omni_intersection 1,000개이며, TAD는 τ=0.2, γ=2.5로 고정합�
 AAD와 Qwen2-Audio baseline 재실행은 제외합니다.
 `bash scripts/run_qwen25_comparison.sh list`로 GPU 없이 실행 목록을 확인할 수 있습니다.
 Smoke 평가가 통과하면 전체 평가를 시작합니다. CUDA GPU가 없으면 실행 전에 중단합니다.
+비교 실행기는 모델별로 한 번 로딩한 뒤 두 데이터셋과 모든 설정을 처리합니다.
+같은 batch의 오디오 전처리·첫 단계 logits를 공유하고, 무음 logits는 생성 이력이 같을 때 재사용합니다.
+기존 최대 16토큰 생성 조건은 유지하며, 각 모델의 smoke 평가 후 해당 모델의 전체 평가를 진행합니다.
 상세 설정과 결과 위치는 [TAD 사용법](scripts/README_qwen_tad.md)을 참고하세요.
 
 ## Gemma 4 E4B / Qwen2-Audio 로컬 GPU 평가

@@ -8,6 +8,8 @@ https://arxiv.org/html/2609.07286v1 (equations 1--9)
 from __future__ import annotations
 
 import argparse
+import copy
+import functools
 import json
 import math
 import sys
@@ -61,13 +63,14 @@ class TADLogitsProcessor:
     it costs an extra full forward pass per generated token.
     """
     def __init__(self, model, silent_inputs, prompt_length, yes_ids, no_ids,
-                 *, alpha=1.0, tau=0.2, gamma=2.5):
+                 *, alpha=1.0, tau=0.2, gamma=2.5, shared_silent=None):
         self.model = model
         self.silent_inputs = silent_inputs
         self.prompt_length = prompt_length
         self.yes_ids, self.no_ids = yes_ids, no_ids
         self.alpha, self.tau, self.gamma = alpha, tau, gamma
         self.diagnostics = None
+        self.shared_silent = shared_silent
 
     def __call__(self, input_ids, scores):
         import torch
@@ -82,11 +85,17 @@ class TADLogitsProcessor:
         # forward must not replace the real generation branch's offsets.
         has_rope = hasattr(self.model, 'rope_deltas')
         real_rope = getattr(self.model, 'rope_deltas', None)
+        prefix = tuple(map(tuple, suffix.tolist())) if self.shared_silent is not None else None
         try:
             if has_rope:
                 self.model.rope_deltas = None
-            with torch.inference_mode():
-                reference = self.model(**silent, use_cache=False).logits[:, -1, :]
+            if self.shared_silent is not None and prefix in self.shared_silent:
+                reference = self.shared_silent[prefix]
+            else:
+                with torch.inference_mode():
+                    reference = self.model(**silent, use_cache=False).logits[:, -1, :].float().clone()
+                if self.shared_silent is not None:
+                    self.shared_silent[prefix] = reference
         finally:
             if has_rope:
                 self.model.rope_deltas = real_rope
@@ -97,6 +106,48 @@ class TADLogitsProcessor:
         if info is not None:
             self.diagnostics = info
         return combined
+
+
+class SharedPrefill:
+    """Reuse the real branch's first forward, including an independent KV cache.
+
+    This context is local to one prepared batch. Only generate() calls are
+    intercepted; silent reference forwards are explicitly excluded by their
+    use_cache=False flag. Each generation receives its own cache copy because
+    Transformers mutates DynamicCache during decoding.
+    """
+    def __init__(self, model):
+        self.model = model
+        self.output = None
+        self.first = True
+
+    def reset(self):
+        self.first = True
+
+    def __enter__(self):
+        self.original = self.model.forward
+        self.had_instance_forward = 'forward' in self.model.__dict__
+        self.instance_forward = self.model.__dict__.get('forward')
+        @functools.wraps(self.original)
+        def forward(*args, **kwargs):
+            if kwargs.get('use_cache') is False or not self.first:
+                return self.original(*args, **kwargs)
+            self.first = False
+            if self.output is None:
+                self.output = self.original(*args, **kwargs)
+                self.rope = copy.deepcopy(getattr(self.model, 'rope_deltas', None))
+            if hasattr(self.model, 'rope_deltas'):
+                self.model.rope_deltas = copy.deepcopy(self.rope)
+            return copy.deepcopy(self.output)
+        self.model.forward = forward
+        return self
+
+    def __exit__(self, *exc):
+        if self.had_instance_forward:
+            self.model.forward = self.instance_forward
+        else:
+            del self.model.forward
+        self.output = None
 
 
 class QwenTAD:
@@ -116,11 +167,10 @@ class QwenTAD:
         self.spec, self.config, self.args = spec, config, args
         self.yes_ids, self.no_ids = token_sets(self.processor.tokenizer)
 
-    def predict_batch(self, samples, audio_files):
+    def prepare_batch(self, samples, audio_files, *, need_silent):
         import librosa
         import numpy as np
         import torch
-        from transformers import LogitsProcessorList
         rate = self.processor.feature_extractor.sampling_rate
         template = self.config['prompt']['template']
         is_omni = self.spec['backend'] == 'qwen2_5_omni'
@@ -142,22 +192,46 @@ class QwenTAD:
                             dtype=self.model.dtype if v.is_floating_point() else v.dtype)
                     for k, v in inputs.items()}
         inputs = prepare(waves)
-        processors = LogitsProcessorList()
-        if self.args.method != 'default':
+        silent = None
+        if need_silent:
             silent = prepare([np.zeros_like(wave) for wave in waves])
             if not torch.equal(inputs['input_ids'], silent['input_ids']):
                 raise ValueError('Real/silent audio token layouts differ')
+        return inputs, silent
+
+    def generate_prepared(self, inputs, silent, *, method, alpha, shared_silent=None):
+        import torch
+        from transformers import LogitsProcessorList
+        processors = LogitsProcessorList()
+        if method != 'default':
             processors.append(TADLogitsProcessor(
                 self.model, silent, inputs['input_ids'].shape[1],
-                self.yes_ids, self.no_ids, alpha=self.args.alpha,
-                tau=self.args.tau, gamma=self.args.gamma if self.args.method == 'tad' else 0.0))
+                self.yes_ids, self.no_ids, alpha=alpha,
+                tau=self.args.tau, gamma=self.args.gamma if method == 'tad' else 0.0,
+                shared_silent=shared_silent))
         with torch.inference_mode():
             output = self.model.generate(
                 **inputs, logits_processor=processors, do_sample=False,
-                num_beams=1, repetition_penalty=1.0,
+                num_beams=1, repetition_penalty=1.0, use_cache=True,
                 max_new_tokens=self.args.max_new_tokens)
         return self.processor.batch_decode(
             output[:, inputs['input_ids'].shape[1]:], skip_special_tokens=True)
+
+    def predict_batch(self, samples, audio_files):
+        inputs, silent = self.prepare_batch(samples, audio_files, need_silent=self.args.method != 'default')
+        return self.generate_prepared(inputs, silent, method=self.args.method, alpha=self.args.alpha)
+
+    def predict_variants(self, samples, audio_files, variants):
+        """variants maps output names to (method, alpha); no cross-batch cache."""
+        inputs, silent = self.prepare_batch(
+            samples, audio_files, need_silent=any(v[0] != 'default' for v in variants.values()))
+        shared_silent, responses = {}, {}
+        with SharedPrefill(self.model) as prefill:
+            for name, (method, alpha) in variants.items():
+                prefill.reset()
+                responses[name] = self.generate_prepared(
+                    inputs, silent, method=method, alpha=alpha, shared_silent=shared_silent)
+        return responses
 
 
 def main():
