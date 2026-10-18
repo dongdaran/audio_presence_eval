@@ -1,0 +1,86 @@
+{
+  "-30": {
+    "saved": 476,
+    "valid": 476,
+    "failed": 0,
+    "accuracy": 0.6827731092436975,
+    "macro_f1": 0.6678174465626805,
+    "paired_with_0db": 476,
+    "prediction_changed": 54,
+    "wrong_to_correct": 16,
+    "correct_to_wrong": 38,
+    "samples_over_full_scale": 0
+  },
+  "-20": {
+    "saved": 476,
+    "valid": 476,
+    "failed": 0,
+    "accuracy": 0.7058823529411765,
+    "macro_f1": 0.6905358967214636,
+    "paired_with_0db": 476,
+    "prediction_changed": 41,
+    "wrong_to_correct": 15,
+    "correct_to_wrong": 26,
+    "samples_over_full_scale": 0
+  },
+  "-10": {
+    "saved": 476,
+    "valid": 476,
+    "failed": 0,
+    "accuracy": 0.7247899159663865,
+    "macro_f1": 0.7077304535718136,
+    "paired_with_0db": 476,
+    "prediction_changed": 30,
+    "wrong_to_correct": 14,
+    "correct_to_wrong": 16,
+    "samples_over_full_scale": 0
+  },
+  "-5": {
+    "saved": 476,
+    "valid": 476,
+    "failed": 0,
+    "accuracy": 0.7184873949579832,
+    "macro_f1": 0.7007132132132132,
+    "paired_with_0db": 476,
+    "prediction_changed": 19,
+    "wrong_to_correct": 7,
+    "correct_to_wrong": 12,
+    "samples_over_full_scale": 0
+  },
+  "0": {
+    "saved": 476,
+    "valid": 476,
+    "failed": 0,
+    "accuracy": 0.7289915966386554,
+    "macro_f1": 0.7102696581499044,
+    "paired_with_0db": 476,
+    "prediction_changed": 0,
+    "wrong_to_correct": 0,
+    "correct_to_wrong": 0,
+    "samples_over_full_scale": 0
+  },
+  "5": {
+    "saved": 476,
+    "valid": 476,
+    "failed": 0,
+    "accuracy": 0.7205882352941176,
+    "macro_f1": 0.7019607843137254,
+    "paired_with_0db": 476,
+    "prediction_changed": 12,
+    "wrong_to_correct": 4,
+    "correct_to_wrong": 8,
+    "samples_over_full_scale": 170
+  },
+  "10": {
+    "saved": 476,
+    "valid": 476,
+    "failed": 0,
+    "accuracy": 0.7289915966386554,
+    "macro_f1": 0.7102696581499044,
+    "paired_with_0db": 476,
+    "prediction_changed": 18,
+    "wrong_to_correct": 9,
+    "correct_to_wrong": 9,
+    "samples_over_full_scale": 297
+  }
+}
