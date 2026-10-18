@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Qwen2-Audio AAD/TAD evaluation, isolated from existing predictions.
+"""Qwen2-Audio / Qwen2.5-Omni AAD/TAD evaluation, isolated from existing predictions.
 
 References (implementation written against this project's Transformers API):
 https://github.com/GillbertHsu/Audio-Aware-Decoding/blob/main/inference_and_eval_qwen.py
@@ -15,6 +15,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+OMNI_SYSTEM = ('You are Qwen, a virtual human developed by the Qwen Team, '
+               'Alibaba Group, capable of perceiving auditory and visual inputs, '
+               'as well as generating text and speech.')
 
 
 def token_sets(tokenizer):
@@ -75,8 +78,18 @@ class TADLogitsProcessor:
         silent['input_ids'] = torch.cat([silent['input_ids'], suffix], dim=1)
         silent['attention_mask'] = torch.cat([
             silent['attention_mask'], torch.ones_like(suffix)], dim=1)
-        with torch.inference_mode():
-            reference = self.model(**silent, use_cache=False).logits[:, -1, :]
+        # Omni stores multimodal position offsets on the model. The auxiliary
+        # forward must not replace the real generation branch's offsets.
+        has_rope = hasattr(self.model, 'rope_deltas')
+        real_rope = getattr(self.model, 'rope_deltas', None)
+        try:
+            if has_rope:
+                self.model.rope_deltas = None
+            with torch.inference_mode():
+                reference = self.model(**silent, use_cache=False).logits[:, -1, :]
+        finally:
+            if has_rope:
+                self.model.rope_deltas = real_rope
         combined, info = combine_logits(
             scores, reference, self.yes_ids, self.no_ids,
             alpha=self.alpha, tau=self.tau, gamma=self.gamma,
@@ -88,9 +101,18 @@ class TADLogitsProcessor:
 
 class QwenTAD:
     def __init__(self, spec, config, args):
-        from src.models import LLM
-        loaded = LLM('qwen2_audio_7b_instruct', spec, config)
-        self.model, self.processor = loaded.model, loaded.processor
+        if spec['backend'] == 'qwen2_5_omni':
+            import torch
+            from transformers import Qwen2_5OmniProcessor, Qwen2_5OmniThinkerForConditionalGeneration
+            dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
+            self.processor = Qwen2_5OmniProcessor.from_pretrained(spec['model_id'])
+            self.processor.tokenizer.padding_side = 'left'
+            self.model = Qwen2_5OmniThinkerForConditionalGeneration.from_pretrained(
+                spec['model_id'], torch_dtype=dtype, device_map='auto').eval()
+        else:
+            from src.models import LLM
+            loaded = LLM('qwen2_audio_7b_instruct', spec, config)
+            self.model, self.processor = loaded.model, loaded.processor
         self.spec, self.config, self.args = spec, config, args
         self.yes_ids, self.no_ids = token_sets(self.processor.tokenizer)
 
@@ -101,10 +123,14 @@ class QwenTAD:
         from transformers import LogitsProcessorList
         rate = self.processor.feature_extractor.sampling_rate
         template = self.config['prompt']['template']
+        is_omni = self.spec['backend'] == 'qwen2_5_omni'
         conversations = [[{'role': 'user', 'content': [
-            {'type': 'audio', 'audio_url': str(path)},
+            {'type': 'audio', ('audio' if is_omni else 'audio_url'): str(path)},
             {'type': 'text', 'text': template.format(caption=sample['caption'])},
         ]}] for sample, path in zip(samples, audio_files)]
+        if is_omni:
+            conversations = [[{'role': 'system', 'content': [
+                {'type': 'text', 'text': OMNI_SYSTEM}]}] + c for c in conversations]
         texts = [self.processor.apply_chat_template(
             c, tokenize=False, add_generation_prompt=True) for c in conversations]
         waves = [librosa.load(str(path), sr=rate, mono=True)[0] for path in audio_files]
@@ -137,6 +163,8 @@ class QwenTAD:
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--config', type=Path, required=True)
+    parser.add_argument('--model', choices=['qwen2_audio_7b_instruct', 'qwen2_5_omni_7b'],
+                        default='qwen2_audio_7b_instruct')
     parser.add_argument('--method', choices=['default', 'aad', 'tad'], default='tad')
     parser.add_argument('--alpha', type=float, default=1.0)
     parser.add_argument('--tau', type=float, default=0.2)
@@ -152,17 +180,23 @@ def main():
             or args.max_new_tokens < 1 or (args.limit is not None and args.limit < 1)):
         parser.error('Require finite parameters, alpha/gamma >= 0, positive sizes/limit')
     from src.common import load_samples, read_config
-    from run_experiment import run_llm
+    from scripts.run_experiment import run_llm
     config = read_config(args.config)
-    spec = dict(config['models']['qwen2_audio_7b_instruct'])
-    if spec['backend'] != 'qwen2_audio':
-        parser.error('This script supports the qwen2_audio backend only')
+    if args.model == 'qwen2_5_omni_7b':
+        spec = dict(backend='qwen2_5_omni', model_id='Qwen/Qwen2.5-Omni-7B')
+    else:
+        spec = dict(config['models'][args.model])
+        if spec['backend'] != 'qwen2_audio':
+            parser.error('Expected the qwen2_audio backend')
+    import torch
+    if not torch.cuda.is_available():
+        parser.error('A CUDA GPU is required; no evaluation has been started')
     if args.prompt == 'paper':
         config['prompt']['template'] = (
             'Focus on the given audio and answer the following question. '
             "Answer in the format: 'Yes, …' or 'No, …', and always start with 'Yes' or 'No'. "
             'Does this audio contain the sound of {caption}?')
-    key = f'qwen2_audio_7b_{args.method}'
+    key = f"{args.model.removesuffix('_instruct')}_{args.method}"
     spec['llm_micro_batch_size'] = args.batch_size
     config['models'][key] = spec
     config['experiment']['batch_size'] = args.batch_size
@@ -177,6 +211,8 @@ def main():
                     tau=args.tau, gamma=args.gamma, max_new_tokens=args.max_new_tokens,
                     prompt=config['prompt']['template'],
                     sample_ids=[s['sample_id'] for s in samples])
+    if args.model == 'qwen2_5_omni_7b':
+        metadata['system_prompt'] = OMNI_SYSTEM
     manifest = output.with_suffix('.run.json')
     if manifest.exists() and json.loads(manifest.read_text()) != metadata:
         parser.error('Run parameters changed; choose another --results-dir')
@@ -202,6 +238,8 @@ def main():
     summary['balanced_accuracy'] = sum(recalls)/2 if None not in recalls else None
     output.with_suffix('.metrics.json').write_text(json.dumps(summary, indent=2)+'\n')
     print(json.dumps(summary, indent=2), flush=True)
+    if summary['invalid_failed']:
+        raise SystemExit('Evaluation contains invalid/failed rows; inspect the TSV before continuing')
 
 
 if __name__ == '__main__':

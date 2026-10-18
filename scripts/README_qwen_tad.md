@@ -1,4 +1,4 @@
-# Qwen2-Audio TAD
+# Qwen2-Audio / Qwen2.5-Omni TAD
 
 Standalone runner: `scripts/run_qwen_tad.py`. References:
 
@@ -38,7 +38,33 @@ Parameters can be changed with `--alpha`, `--tau`, `--gamma`, `--batch-size`, an
 Default batch size is 1. The silent branch recomputes the complete prompt plus
 generated history each step instead of relying on private Transformers cache
 APIs; this is slower and uses additional memory. No Transformers patch is needed.
-The gate and margins are computed in float32. Only Qwen2-Audio is supported.
+The gate and margins are computed in float32.
+
+## Qwen2.5-Omni-7B baseline / AAD / TAD
+
+Use `--model qwen2_5_omni_7b` to load `Qwen/Qwen2.5-Omni-7B` with the
+text-only Thinker class (no speech generation), its official processor, and its
+recommended system message. Every method uses the same user/system prompts.
+The silent branch's mutable RoPE offsets are isolated from real generation.
+TAD on Omni is an adaptation of the paper's algorithm, not a claim that the
+paper evaluated this model.
+
+```bash
+# GPU server, dependencies: requirements-local-audio.txt (includes Transformers).
+bash scripts/run_qwen25_comparison.sh
+# Only validate 2 examples (1 yes, 1 no) per dataset and setting:
+bash scripts/run_qwen25_comparison.sh smoke
+# Or select another environment:
+PYTHON_BIN=/path/to/gpu/venv/bin/python bash scripts/run_qwen25_comparison.sh
+```
+
+The launcher runs smoke checks, then full evaluations, sequentially on one GPU:
+StemFoley (476) and random1000_omni_intersection (1000), each with baseline,
+AAD alpha=0.5/1.0 and TAD alpha=0.5/1.0 (tau=0.2, gamma=2.5).
+Outputs/logs are isolated under `results/<dataset>/qwen25_comparison/<setting>/`.
+Invalid/error predictions stop the launcher after their results are saved.
+Restarting the same command resumes successful rows. Running on a CUDA machine
+is required; the CPU preflight stops before evaluation or weight downloads.
 
 Tests (require PyTorch, but no GPU or model download):
 
