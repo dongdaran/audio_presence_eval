@@ -40,7 +40,7 @@ generated history each step instead of relying on private Transformers cache
 APIs; this is slower and uses additional memory. No Transformers patch is needed.
 The gate and margins are computed in float32.
 
-## Qwen2.5-Omni-7B baseline / AAD / TAD
+## Qwen2.5-Omni baseline + Qwen2-Audio / Qwen2.5-Omni TAD
 
 Use `--model qwen2_5_omni_7b` to load `Qwen/Qwen2.5-Omni-7B` with the
 text-only Thinker class (no speech generation), its official processor, and its
@@ -51,17 +51,47 @@ paper evaluated this model.
 
 ```bash
 # GPU server, dependencies: requirements-local-audio.txt (includes Transformers).
+bash scripts/setup_qwen_audio_env.sh
 bash scripts/run_qwen25_comparison.sh
+# Print the ten full-evaluation combinations without loading models:
+bash scripts/run_qwen25_comparison.sh list
 # Only validate 2 examples (1 yes, 1 no) per dataset and setting:
 bash scripts/run_qwen25_comparison.sh smoke
 # Or select another environment:
 PYTHON_BIN=/path/to/gpu/venv/bin/python bash scripts/run_qwen25_comparison.sh
 ```
 
+To run smoke checks explicitly before launching a background full evaluation:
+
+```bash
+bash scripts/setup_qwen_audio_env.sh
+bash scripts/run_qwen25_comparison.sh smoke
+# Proceed only if smoke exits successfully.
+mkdir -p results/qwen25_comparison
+nohup bash scripts/run_qwen25_comparison.sh full \
+  > results/qwen25_comparison/run.log 2>&1 &
+tail -f results/qwen25_comparison/run.log
+```
+
+Check per-setting `*.metrics.json` for `yes_recall`, `no_recall`,
+`balanced_accuracy` and `invalid_failed`. Compare methods within the same dataset.
+The `full` mode skips smoke checks; the default `all` mode runs both phases.
+
 The launcher runs smoke checks, then full evaluations, sequentially on one GPU:
-StemFoley (476) and random1000_omni_intersection (1000), each with baseline,
-AAD alpha=0.5/1.0 and TAD alpha=0.5/1.0 (tau=0.2, gamma=2.5).
-Outputs/logs are isolated under `results/<dataset>/qwen25_comparison/<setting>/`.
+StemFoley (476) and random1000_omni_intersection (1000), each with:
+
+| Model | Settings | Runs across both datasets |
+|---|---|---:|
+| Qwen2.5-Omni-7B | baseline | 2 |
+| Qwen2.5-Omni-7B | TAD alpha=0.5/1.0 | 4 |
+| Qwen2-Audio-7B-Instruct | TAD alpha=0.5/1.0 | 4 |
+
+Ten full evaluations, 7,380 predictions. TAD uses tau=0.2 and gamma=2.5.
+Smoke validation adds two examples per combination (20 predictions).
+AAD is excluded from this launcher. The standalone runner retains `--method aad`
+for a later experiment. Qwen2-Audio baseline is not rerun.
+Outputs/logs are isolated under `results/<dataset>/qwen25_comparison/<setting>/`
+for Omni and `results/<dataset>/qwen2_audio_comparison/<setting>/` for Qwen2-Audio.
 Invalid/error predictions stop the launcher after their results are saved.
 Restarting the same command resumes successful rows. Running on a CUDA machine
 is required; the CPU preflight stops before evaluation or weight downloads.

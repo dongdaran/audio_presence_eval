@@ -1,5 +1,30 @@
 # AudioSet Presence Evaluation
 
+## Qwen2.5-Omni baseline + Qwen2-Audio / Qwen2.5-Omni TAD
+
+기존 프로젝트 `.venv`에 CUDA 12.6용 PyTorch와 로컬 오디오 의존성을 설치합니다.
+가상환경을 새로 만들거나 활성화할 필요 없이 아래 스크립트를 사용합니다.
+
+```bash
+bash scripts/setup_qwen_audio_env.sh
+bash scripts/run_qwen25_comparison.sh
+```
+
+비교 실행기는 `.venv/bin/python`으로 아래 조합을 두 데이터셋에서 순차 실행합니다.
+
+| 모델 | 설정 | 데이터셋 수 | 전체 평가 횟수 |
+|---|---|---:|---:|
+| Qwen2.5-Omni-7B | baseline | 2 | 2 |
+| Qwen2.5-Omni-7B | TAD α=0.5 / 1.0 | 2 | 4 |
+| Qwen2-Audio-7B-Instruct | TAD α=0.5 / 1.0 | 2 | 4 |
+
+총 **10회**, **7,380개 예측**입니다. 데이터셋은 StemFoley 476개와
+random1000_omni_intersection 1,000개이며, TAD는 τ=0.2, γ=2.5로 고정합니다.
+AAD와 Qwen2-Audio baseline 재실행은 제외합니다.
+`bash scripts/run_qwen25_comparison.sh list`로 GPU 없이 실행 목록을 확인할 수 있습니다.
+Smoke 평가가 통과하면 전체 평가를 시작합니다. CUDA GPU가 없으면 실행 전에 중단합니다.
+상세 설정과 결과 위치는 [TAD 사용법](scripts/README_qwen_tad.md)을 참고하세요.
+
 ## Gemma 4 E4B / Qwen2-Audio 로컬 GPU 평가
 
 현재 프로젝트의 `.venv`를 사용합니다. 두 모델의 입력 처리는 공식
