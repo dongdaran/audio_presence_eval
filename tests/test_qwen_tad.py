@@ -116,6 +116,11 @@ class TADTests(unittest.TestCase):
         with patch.dict(sys.modules, {'librosa': librosa, 'transformers': transformers}):
             obj.predict_batch([{'caption': 'dog'}], [Path('clip.wav')])
         self.assertEqual(obj.model.processors, [])
+        with patch.dict(sys.modules, {'librosa': librosa}):
+            direct, _ = obj.prepare_batch([{'caption': 'dog'}], [Path('clip.wav')],
+                                          need_silent=False, waveforms=[np.ones(20, dtype=np.float32)])
+        self.assertEqual(direct['input_ids'].tolist(), obj.model.inputs['input_ids'].tolist())
+        np.testing.assert_array_equal(obj.processor.waves[-1][0], obj.processor.waves[-2][0])
 
 
 if __name__ == '__main__':

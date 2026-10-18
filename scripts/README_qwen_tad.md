@@ -1,5 +1,22 @@
 # Qwen2-Audio / Qwen2.5-Omni TAD
 
+## Qwen2.5-Omni waveform gain logit sweep
+
+On a CUDA machine with the local audio environment installed, run:
+
+```bash
+python scripts/run_qwen25_gain_logits.py --config config/stemfoley.yaml --limit 2
+python scripts/run_qwen25_gain_logits.py --config config/stemfoley.yaml
+```
+
+The full run scores all 476 eligible StemFoley test samples at -30, -20, -10,
+-5, 0, +5, and +10 dB. It applies gain to float waveforms in memory without
+writing or clipping WAVs. Each decision compares first-token Yes/No pooled
+logits; this is neither free-form generation nor TAD. Results and a per-gain
+summary are written under `results/stemfoley/qwen25_gain_logits/`. The TSV
+records each waveform's peak and fraction of samples outside the PCM full-scale
+range. A matching run manifest permits resuming completed sample/gain pairs.
+
 Standalone runner: `scripts/run_qwen_tad.py`. References:
 
 - AAD implementation structure: https://github.com/GillbertHsu/Audio-Aware-Decoding/blob/main/inference_and_eval_qwen.py

@@ -167,7 +167,7 @@ class QwenTAD:
         self.spec, self.config, self.args = spec, config, args
         self.yes_ids, self.no_ids = token_sets(self.processor.tokenizer)
 
-    def prepare_batch(self, samples, audio_files, *, need_silent):
+    def prepare_batch(self, samples, audio_files, *, need_silent, waveforms=None):
         import librosa
         import numpy as np
         import torch
@@ -183,7 +183,10 @@ class QwenTAD:
                 {'type': 'text', 'text': OMNI_SYSTEM}]}] + c for c in conversations]
         texts = [self.processor.apply_chat_template(
             c, tokenize=False, add_generation_prompt=True) for c in conversations]
-        waves = [librosa.load(str(path), sr=rate, mono=True)[0] for path in audio_files]
+        waves = (waveforms if waveforms is not None else
+                 [librosa.load(str(path), sr=rate, mono=True)[0] for path in audio_files])
+        if len(waves) != len(samples):
+            raise ValueError('samples/waveforms length mismatch')
         def prepare(audios):
             inputs = self.processor(text=texts, audio=audios, sampling_rate=rate,
                                     padding=True, return_tensors='pt')
