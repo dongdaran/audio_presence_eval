@@ -212,3 +212,25 @@ CLAPScore / CNN14 평균 점수 예시:
 점수표는 yes/no별 전체 평균과 클래스별 점수를 함께 제공합니다. `Pooled mean`은 샘플 전체의 평균, `Pooled SD`는 샘플 점수의 표준편차, `Per-MID macro mean`은 MID별 평균을 구한 뒤 클래스마다 같은 비중으로 다시 평균한 값입니다. 클래스별 표에는 MID마다 yes/no 샘플 수와 평균, `Yes minus no` 차이가 나옵니다. 점수 차이가 크면 그 클래스의 yes와 no 샘플이 모델 점수상 더 잘 구분된다는 뜻입니다.
 
 원본 예측과 점수는 각각 `llm_<model>.tsv`, `clap_scores.tsv`, `cnn14_scores.tsv`에 저장됩니다.
+## StemFoley yes/no 토큰 logit 재평가
+
+Qwen2.5-Omni, Qwen3-Omni, Kimi-Audio의 첫 응답 토큰 logit으로 yes/no를 결정합니다.
+TAD와 동일하게 `yes`/`Yes`/`YES` 및 앞 공백이 있는 표기의 토큰 ID를 모두 합치고,
+각 집합의 logit을 `logsumexp`로 묶습니다. `yes_logit > no_logit`이면 yes입니다.
+TSV에는 두 점수, 차이, 사용된 토큰 ID가 저장됩니다. 기존 텍스트 판정 결과와
+구분하기 위해 `results/stemfoley/logit_baselines/`에 저장합니다.
+
+```bash
+for model in qwen2_5_omni_7b qwen3_omni_instruct; do
+  .venv/bin/python scripts/run_lalm_logits.py \
+    --config config/stemfoley.yaml --model "$model" \
+    --results-dir results/stemfoley/logit_baselines
+done
+.venv-kimi/bin/python scripts/run_lalm_logits.py \
+  --config config/stemfoley.yaml --model kimi_audio_7b \
+  --results-dir results/stemfoley/logit_baselines
+```
+
+GPU 서버에서 실행하세요. 설치 환경이 다르면 각 모델이 설치된 Python으로 바꾸면 됩니다.
+먼저 확인하려면 각 명령에 `--limit 2`를 추가하세요. 완료된 행은 재실행 시 건너뛰며,
+프롬프트나 데이터셋을 바꾸면 별도 결과 디렉터리를 사용해야 합니다.
